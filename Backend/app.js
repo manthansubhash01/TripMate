@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth",require("./routes/authRoute"));
-// app.use("/api/trip");
+app.use("/api/trip", require("./routes/tripRoute"));
 
 app.get('/',(req, res) => {
     res.send("Welcome to the TripMate API")
