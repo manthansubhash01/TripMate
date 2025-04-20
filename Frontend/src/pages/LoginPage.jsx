@@ -1,14 +1,16 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { CircleUserRound, LockKeyhole } from "lucide-react";
+ 
 function LoginPage() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
-  const {login} = useAuth();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
 
@@ -34,55 +36,83 @@ function LoginPage() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json()
+      const data = await response.json();
 
-      if(!response.ok){
-        setError(data.message)
+      if (!response.ok) {
+        setError(data.message);
       }
 
-      const token = data.token
-      login(token)
-
-
+      const token = data.token;
+      const result = login(token);
+      if (!result.success) {
+        setError("You cannot log in with the same token again.");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
-        console.log(err)
-        setError("Server error, please try again")
+      console.log(err);
+      setError("Server error, please try again");
     }
   };
 
   return (
-    <div>
-      <div>
-        <img alt=""></img>
-      </div>
-      <div>
-        <form onSubmit={handelSubmit}>
-          <div>
-            <label>Username : </label>
-            <input
-              type="text"
-              placeholder="user_name"
-              name="username"
-              ref={usernameRef}
-            ></input>
-          </div>
-          <div>
-            <label>Password : </label>
-            <input
-              type="password"
-              placeholder="user@123"
-              name="password"
-              minLength={6}
-              maxLength={12}
-              ref={passwordRef}
-            ></input>
-          </div>
-          <button onClick={handelClick}>Login</button>
-          {error && <p>{error}</p>}
-          <p>
-            Don't have an account? <Link to="/signup">Sign Up</Link>
-          </p>
-        </form>
+    <div className="flex items-center justify-around min-h-screen bg-[#F9FBFC]">
+      <div className="flex w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl bg-[#FFFFFF]">
+        <div className="hidden md:block md:w-1/2">
+          <img
+            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
+            alt=""
+            className="object-cover h-140 brightness-70"
+          ></img>
+        </div>
+        <div className="m-auto">
+          <h2 className="text-3xl font-extrabold mb-1">Welcome back</h2>
+          <p className="text-[#7F7F7F] mb-15">Login to continue your journey</p>
+          <form onSubmit={handelSubmit}>
+            <div className="mb-6 relative">
+              <CircleUserRound
+                color="#000000"
+                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+              />
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                ref={usernameRef}
+                className="w-80 pl-10 px-4 py-2 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+              ></input>
+            </div>
+            <div className="mb-10 relative">
+              <LockKeyhole
+                color="#000000"
+                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+              />
+
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                minLength={6}
+                maxLength={12}
+                ref={passwordRef}
+                className="w-80 pl-10 px-4 py-2 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+              ></input>
+            </div>
+            <button
+              onClick={handelClick}
+              className="w-full h-10 text-white bg-[#0F172A] mb-6 rounded-lg"
+            >
+              Login
+            </button>
+            {error && <p>{error}</p>}
+            <p className="text-[#7F7F7F] text-center">
+              Don't have an account ?{" "}
+              <Link to="/signup" className="text-[#0F172A]">
+                Sign Up
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
