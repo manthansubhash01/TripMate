@@ -2,15 +2,13 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CircleUserRound, LockKeyhole } from "lucide-react";
+import { Navigate } from "react-router-dom";
  
 function LoginPage() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
   const [error, setError] = useState("");
 
@@ -23,6 +21,13 @@ function LoginPage() {
       password: passwordRef.current.value,
     });
   };
+
+  const { isAuthenticated, login } = useAuth();
+  const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   const handelSubmit = async (event) => {
     event.preventDefault();

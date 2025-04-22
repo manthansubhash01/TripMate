@@ -1,8 +1,11 @@
 import React from 'react'
+import Footer from '../components/Footer'
 
 const Map = () => {
   return (
-    <div>Map</div>
+    <div>
+      <Footer/>
+    </div>
   )
 }
 

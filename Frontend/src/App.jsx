@@ -14,9 +14,9 @@ import Navbar from "./components/Navbar";
 function App() {
 
   return (
-    <AuthProvider>
-      <Router>
-        <Navbar/>
+    <Router>
+      <AuthProvider>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
@@ -46,8 +46,8 @@ function App() {
             }
           ></Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 
 }
