@@ -10,7 +10,7 @@ const itinerarySchema = new mongoose.Schema({
   days: Number,
   topAttractions: Array,
   plan: String,
-  flightOffers: Array,
+  // flightOffers: Array,
   hotelOffers: Array,
 });
 

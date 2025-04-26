@@ -1,8 +1,5 @@
-// const { getPOI } = require("../utils/amadeusPOIs");
-const { getFlightOffers } = require("../utils/amadeusFlights");
-const { getHotelOffers } = require("../utils/amadeusHotels");
-
-const { getLocationId, getAttractions } = require("../utils/travelAdvisor");
+const { getHotelOffers } = require("../utils/amadeusHotels")
+// const { getdestinationId, getAttractions } = require("../utils/travelAdvisor");
 const generateItineraryGPT = require("../utils/itineraryAI");
 const getFallbackImage = require("../utils/FallbackImage");
 const { deleteMany } = require("../models/userModel");
@@ -12,40 +9,52 @@ const customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
 
 const generateItinerary = async (req, res) => {
-  const { origin, location, startDate, endDate } = req.body;
+  const { origin, destination, startDate, endDate } = req.body;
 
   const parsedStart = dayjs(startDate, "DD-MM-YYYY");
   const parsedEnd = dayjs(endDate, "DD-MM-YYYY");
   const days = parsedEnd.diff(parsedStart, "day") + 1;
 
   try {
-    const location_id = await getLocationId(location);
-    const attractions = await getAttractions(location_id);
+    // const destination_id = await getdestinationId(destination);
+    // const attractions = await getAttractions(destination_id);
 
-    // const attractions = await getPOI(location);
-    console.log(attractions)
-    const topAttractions = await Promise.all(
-      attractions.slice(0, days).map(async (item) => {
-        const image = item.image || (await getFallbackImage(item.name)); 
-        return {
-          name: item.name,
-          image,
-          description: item.description || "No description available",
-        };
-      })
-    );
+    // const attractions = await getPOI(destination);
+    // console.log(attractions)
+    // const topAttractions = await Promise.all(
+    //   attractions.map(async (item) => {
+    //     const image = item.image || (await getFallbackImage(item.name)); 
+    //     return {
+    //       name: item.name,
+    //       image,
+    //       description: item.description || "No description available",
+    //     };
+    //   })
+    // );
 
-    const plan = await generateItineraryGPT(location, topAttractions, days);
-    const flightOffers = await getFlightOffers(origin, location, startDate);
-    const hotelOffers = await getHotelOffers(location); 
+    const plan = await generateItineraryGPT(destination, days);
+
+       const enrichedDays = await Promise.all(
+         plan.map(async (day) => {
+           const destinationName = day.Destination?.Name;
+           const image = await getFallbackImage(destinationName); // fetch image
+           return {
+             ...day,
+             Destination: {
+               ...day.Destination,
+               image: image || "", // fallback https://source.unsplash.com/featured/?travel
+             },
+           };
+         })
+       );
+
+    const hotelOffers = await getHotelOffers(destination); 
 
     res.json({
-      location,
+      destination,
       startDate,
       endDate,
-      topAttractions,
-      plan,
-      flightOffers,
+      enrichedDays,
       hotelOffers,
     });
   } catch (err) {
@@ -56,18 +65,16 @@ const generateItinerary = async (req, res) => {
 
 const saveItinerary = async (req, res) => {
   const userId = req.user._id;
-  const { location, days, topAttractions, plan } = req.body;
+  const { destination, startDate, endDate, enrichedDays, hotelOffers } = req.body;
 
   try {
     await Itinerary.deleteMany({ userId });
 
     const newItinerary = await Itinerary.create({
-      location,
+      destination,
       startDate,
       endDate,
-      topAttractions,
-      plan,
-      flightOffers,
+      enrichedDays,
       hotelOffers,
     });
     res.status(200).json({ message: "itinerary is saved" });

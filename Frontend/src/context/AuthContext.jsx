@@ -19,23 +19,24 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (newToken) => {
-    const blockedToken = localStorage.getItem("blockedToken");
+const login = (newToken) => {
+  const blockedToken = localStorage.getItem("blockedToken");
 
-    if (blockedToken && blockedToken === newToken) {
-      return {
-        success: false,
-        message: "This token is blocked and cannot be used again.",
-      };
-    }
+  if (blockedToken && blockedToken === newToken) {
+    return {
+      success: false,
+      message: "This token is blocked and cannot be used again.",
+    };
+  }
 
-    localStorage.setItem("isAuthenticated", "true");
-    localStorage.setItem("token", newToken);
-    setIsAuthenticated(true);
-    setToken(newToken);
+  localStorage.setItem("isAuthenticated", "true");
+  localStorage.setItem("token", newToken);
+  localStorage.removeItem("blockedToken"); // 👈 clear blocked token after success
+  setIsAuthenticated(true);
+  setToken(newToken);
 
-    return { success: true };
-  };
+  return { success: true };
+};
 
   const logout = () => {
     const currentToken = localStorage.getItem("token");

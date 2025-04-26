@@ -1,55 +1,60 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import Footer from "../components/Footer";
+import { useAuth } from "../context/AuthContext";
+
+
 
 const Itinerary = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
-  const [form, setForm] = useState({
-    "Source" : "",
-    "Destination" : "",
-    "Start Date" : "",
-    "End Date" : "",
-  })
 
-    const sourceRef = useRef();
+  const { token } = useAuth();
+
+    const originRef = useRef();
     const destinationRef = useRef();
     const startDateRef = useRef();
     const endDateRef = useRef();
     const descriptionRef = useRef();
 
-    const handleClick = () => {
-      setForm({
-        "Source": sourceRef.current.value,
-        "Destination": descriptionRef.current.value,
-        "Start Date": startDateRef.current.value,
-        "End Date": endDateRef.current.value
-      });
-    }
-
     const handleSubmit = async(eve) => {
       eve.preventDefault();
+      setLoading(true);
+      const form = {
+        origin: originRef.current.value,
+        destination: destinationRef.current.value,
+        startDate: startDateRef.current.value,
+        endDate: endDateRef.current.value,
+      };
 
       try{
         const response = await fetch(
           "http://localhost:7001/api/trip/itinerary",
           {
-            method: "GET",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
             },
-            body : JSON.stringify(form)
-          })
+            body: JSON.stringify(form),
+          }
+        );
         
         const data = await response.json()
 
         if (! response.ok){
           setErr(data.message)
+          console.error("API Error:", data.message);
+          return;
         }
+        console.log(data)
         ;
       }catch(err){
         console.error(err)
+      }finally{
+        setLoading(false)
       }
+      
     }
 
   return (
@@ -64,13 +69,16 @@ const Itinerary = () => {
             recommendations, organize activities, and craft the perfect travel
             experience.
           </p>
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-x-4 gap-y-2 palce-items-center pl-4 mt-10 mb-10 p-2 bg-[#eeeeee] border border-[#a6a6a6] rounded-lg shadow-2xl shadow-zinc-700">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-2 gap-x-4 gap-y-2 palce-items-center pl-4 mt-10 mb-10 p-2 bg-[#eeeeee] border border-[#a6a6a6] rounded-lg shadow-2xl shadow-zinc-700"
+          >
             <div className="m-2">
-              <label className="m-1 text-sm">Source</label>
+              <label className="m-1 text-sm">Origin</label>
               <input
                 type="text"
-                name="Source"
-                ref={sourceRef}
+                name="origin"
+                ref={originRef}
                 placeholder="Mumbai"
                 className="w-70 px-4 py-2 bg-[#FFFFFF] border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
               ></input>
@@ -79,7 +87,7 @@ const Itinerary = () => {
               <label className="m-1 text-sm">Destination</label>
               <input
                 type="text"
-                name="Destination"
+                name="destination"
                 ref={destinationRef}
                 placeholder="Paris"
                 className="w-70 px-4 py-2 bg-[#FFFFFF] border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
@@ -89,7 +97,7 @@ const Itinerary = () => {
               <label className="m-1 text-sm">Start Date</label>
               <input
                 type="Date"
-                name="Start Date"
+                name="startDate"
                 ref={startDateRef}
                 className="w-70 px-4 py-2 bg-[#FFFFFF] border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
               ></input>
@@ -98,7 +106,7 @@ const Itinerary = () => {
               <label className="m-1 text-sm">End Date</label>
               <input
                 type="Date"
-                name="End Date"
+                name="endDate"
                 ref={endDateRef}
                 className="w-70 px-4 py-2 bg-[#FFFFFF] border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
               ></input>
@@ -113,10 +121,15 @@ const Itinerary = () => {
               ></textarea>
             </div>
             <button
-              onClick={handleClick}
-              className="w-150 px-4 py-2 bg-[#0F172A] text-[#FFFFFF] m-2 col-span-2 rounded-lg"
+              type="submit"
+              disabled={loading}
+              className={`w-150 px-4 py-2  text-[#FFFFFF] m-2 col-span-2 rounded-lg transition-all duration-200 ${
+                loading
+                  ? "bg-[#172341] cursor-not-allowed"
+                  : "bg-[#0F172A] hover:bg-[#1E293B] active:scale-95"
+              }`}
             >
-              Generate Itinerary
+              {loading ? "Generating..." : "Generate Itinerary"}
             </button>
           </form>
         </div>

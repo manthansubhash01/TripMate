@@ -21,26 +21,42 @@ const getIATACode = async (city) => {
 };
 
 const getHotelOffers = async (city) => {
-  cityCode = await getIATACode(city);
+  const cityCode = await getIATACode(city);
 
-const hotelIdResponse = await amadeus.referenceData.locations.hotels.byCity.get({ cityCode });
-    const hotelIds = hotelIdResponse.data.map(h => h.hotelId).slice(0, 5);
+const hotelsResponse = await amadeus.referenceData.locations.hotels.byCity.get({
+  cityCode: cityCode,
+});
+const hotelIds = hotelsResponse.data.map((h) => h.hotelId).slice(0, 5);
 
       if (!hotelIds.length) {
-      console.warn('No hotels found in city');
+      console.error('No hotels found in city');
       return [];
     }
 
-    // Step 2: Get offers using hotel IDs
-    const offerResponse = await amadeus.shopping.hotelOffersSearch.get({
-      hotelIds: hotelIds.join(',')
-    });
+    const validOffers = [];
 
-    return offerResponse.data.map(offer => ({
-      name: offer.hotel.name,
-      address: offer.hotel.address?.lines?.[0] || 'No address',
-      rating: offer.hotel.rating || 'N/A'
-    }));
-  } 
+    for (const hotelId of hotelIds) {
+      try {
+        const offerResponse = await amadeus.shopping.hotelOffersSearch.get({
+          hotelIds: hotelId,
+        });
+        if (offerResponse.data && offerResponse.data.length > 0) {
+          validOffers.push({
+            name: offerResponse.data[0].hotel.name,
+            address:
+              offerResponse.data[0].hotel.address?.lines?.[0] || "No address",
+            rating: offerResponse.data[0].hotel.rating || "N/A",
+          });
+        }
+      } catch (err) {
+        console.error(
+          `Hotel ID ${hotelId} failed:`,
+          err.description || err.message
+        );
+      }
+    }
+
+    return validOffers;
+};
 
 module.exports = { getHotelOffers };

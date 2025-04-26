@@ -5,22 +5,13 @@ import { CircleUserRound, LockKeyhole } from "lucide-react";
 import { Navigate } from "react-router-dom";
  
 function LoginPage() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+
 
   const [error, setError] = useState("");
 
   const usernameRef = useRef();
   const passwordRef = useRef();
 
-  const handelClick = () => {
-    setFormData({
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-    });
-  };
 
   const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
@@ -32,13 +23,22 @@ function LoginPage() {
   const handelSubmit = async (event) => {
     event.preventDefault();
 
+  const username = usernameRef.current.value.trim();
+  const password = passwordRef.current.value.trim();
+
+
+    if (!username || !password) {
+      setError("Both fields are required.");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:7001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
@@ -104,7 +104,7 @@ function LoginPage() {
               ></input>
             </div>
             <button
-              onClick={handelClick}
+              type="submit"
               className="w-full h-10 text-white bg-[#0F172A] mb-6 rounded-lg"
             >
               Login
