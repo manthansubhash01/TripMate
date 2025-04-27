@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 flex justify-between items-center px-6 py-3 bg-[#FFFFFF] shadow-md">
       <div>
-        <img src="" alt="TripMate" className="text-black"></img>
+        {/* <img src="" alt="TripMate" className="text-black"></img> */}<h1>TripMate</h1>
       </div>
       <NavLink
         to="/"
