@@ -4,16 +4,22 @@ const generateItineraryGPT = require("../utils/itineraryAI");
 const getFallbackImage = require("../utils/FallbackImage");
 const { deleteMany } = require("../models/userModel");
 const Itinerary = require("../models/itineraryModel");
-const dayjs = require("dayjs");
-const customParseFormat = require("dayjs/plugin/customParseFormat");
-dayjs.extend(customParseFormat);
+// const dayjs = require("dayjs");
+// const customParseFormat = require("dayjs/plugin/customParseFormat");
+// dayjs.extend(customParseFormat);
 
 const generateItinerary = async (req, res) => {
   const { origin, destination, startDate, endDate } = req.body;
 
-  const parsedStart = dayjs(startDate, "DD-MM-YYYY");
-  const parsedEnd = dayjs(endDate, "DD-MM-YYYY");
-  const days = parsedEnd.diff(parsedStart, "day") + 1;
+const start = new Date(startDate);
+const end = new Date(endDate);
+
+// Calculate the difference in time (milliseconds)
+const differenceInTime = end - start;
+
+// Convert milliseconds to days
+const days = differenceInTime / (1000 * 3600 * 24);
+  console.log(days)
 
   try {
     // const destination_id = await getdestinationId(destination);

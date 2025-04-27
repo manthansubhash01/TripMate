@@ -53,9 +53,7 @@ Strictly NO extra text before or after JSON.`;
 
   const itinerary = JSON.parse(cleanedResponse);
 
-
-  return itinerary
+  return itinerary;
 };
-
 
 module.exports = generateItineraryGPT;
