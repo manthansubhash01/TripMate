@@ -2,9 +2,18 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import Footer from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
-import { Calculator, Calendar, Clock10, Gem, Import, MapPin, Pencil } from "lucide-react";
-
-
+import {
+  Calculator,
+  Calendar,
+  Clock10,
+  Gem,
+  Import,
+  MapPin,
+  Pencil,
+} from "lucide-react";
+import TripMateLoader from "../components/Loader";
+import travelImage from "../assets/London-cuate.jpg";
+import tripImage from "../assets/Globalization-bro.jpg"
 
 const Itinerary = () => {
   const [loading, setLoading] = useState(false);
@@ -14,64 +23,93 @@ const Itinerary = () => {
 
   const { token } = useAuth();
 
-    const originRef = useRef();
-    const destinationRef = useRef();
-    const startDateRef = useRef();
-    const endDateRef = useRef();
-    const descriptionRef = useRef();
+  const originRef = useRef();
+  const destinationRef = useRef();
+  const startDateRef = useRef();
+  const endDateRef = useRef();
+  const descriptionRef = useRef();
 
-    const handleSubmit = async (eve) => {
-      eve.preventDefault();
-      setLoading(true);
-      const form = {
-        origin: originRef.current.value,
-        destination: destinationRef.current.value,
-        startDate: startDateRef.current.value,
-        endDate: endDateRef.current.value,
-      };
-
-      setFormData(form);
+  const handleSubmit = async (eve) => {
+    eve.preventDefault();
+    setLoading(true);
+    const form = {
+      origin: originRef.current.value,
+      destination: destinationRef.current.value,
+      startDate: startDateRef.current.value,
+      endDate: endDateRef.current.value,
     };
 
-    useEffect(() => {
-      const fetchData = async () => {
-        if (!formData) return; // don't run if formData is null
+    setFormData(form);
+  };
 
-        setLoading(true);
-        setErr("");
-        setResult({});
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!formData) return; 
 
-        try {
-          const response = await fetch(
-            "http://localhost:7001/api/trip/itinerary",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(formData),
-            }
-          );
+      setLoading(true);
+      setErr("");
+      setResult({});
 
-          const data = await response.json();
-          setResult(data);
-
-          if (!response.ok) {
-            setErr(data.message);
-            console.error("API Error:", data.message);
-            return;
+      try {
+        const response = await fetch(
+          "http://localhost:7001/api/trip/itinerary",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
           }
-          console.log(data);
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setLoading(false);
+        );
+
+        const data = await response.json();
+        setResult(data);
+
+        if (!response.ok) {
+          setErr(data.message);
+          console.error("API Error:", data.message);
+          return;
         }
-      };
-      fetchData();
-    }, [formData, token]);
-    
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [formData, token]);
+
+  const handleSave = async() => {
+    try{
+      const response = await fetch(
+      "http://localhost:7001/api/trip/saveItinerary",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          destination: result.destination,
+          startDate: result.startDate,
+          endDate: result.endDate,
+          enrichedDays: result.enrichedDays,
+          packingList: result.packingList,
+        }),
+      }
+    )
+    const data = response.json()
+    if (!response.ok){
+      console.log(data.message)
+    }
+    console.log(data.message)
+    }catch(err){
+      console.log(err)
+    };
+  };
+
   return (
     <div>
       <div className="grid grid-cols-2 m-20">
@@ -158,12 +196,14 @@ const Itinerary = () => {
 
       <div className="h-250 w-340 p-15 m-20 bg-[#eeeeee] rounded-xl overflow-y-auto">
         {loading ? (
-          <h1>Generating Itinerary.....</h1>
+          <TripMateLoader height={"h-screen"} />
         ) : (
           <ul>
             {Array.isArray(result.enrichedDays) ? (
               <div className="flex-col justify-center">
-                <h1 className="text-5xl text-center mb-15 text-[#0F172A]">Your Itinerary</h1>
+                <h1 className="text-5xl text-center mb-15 text-[#0F172A]">
+                  Your Itinerary
+                </h1>
                 {result.enrichedDays.map((dayObj, index) => (
                   <li key={index}>
                     <div className="flex justify-between mb-5 mt-5 rounded-2xl h-75 w-auto bg-[#ffffff] shadow-2xl">
@@ -219,15 +259,21 @@ const Itinerary = () => {
                 ))}
               </div>
             ) : (
-              <p>No Itinerary Found.</p>
+              <div className="flex justify-center">
+                <img src={tripImage} className="h-200"></img>
+              </div>
             )}
           </ul>
         )}
       </div>
       <div className="flex justify-center">
         <div className="h-175 w-250 m-20 p-10 flex-col bg-[#eeeeee] rounded-xl">
-          {result ? (
-            <p>Create New Itinerary</p>
+          {loading ? (
+            <TripMateLoader height={"h-150"} />
+          ) : Object.keys(result).length === 0 ? (
+            <div className="flex justify-center">
+              <img src={travelImage} className="h-200 mb-25"></img>
+            </div>
           ) : (
             <div>
               <div className="flex justify-between p-10">
@@ -241,6 +287,7 @@ const Itinerary = () => {
                         ? "bg-[#172341] cursor-not-allowed"
                         : "bg-[#0F172A] hover:bg-[#1E293B] active:scale-95"
                     }`}
+                    onClick={handleSave}
                   >
                     <Import className="inline-block h-5 mb-1 mr-1" /> Save
                     Itinerary

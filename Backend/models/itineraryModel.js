@@ -6,12 +6,10 @@ const itinerarySchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  location: String,
+  destination: String,
   days: Number,
-  topAttractions: Array,
-  plan: String,
-  // flightOffers: Array,
-  hotelOffers: Array,
+  enrichedDays: Array,
+  packingList: Object,
 });
 
 module.exports = mongoose.model("Itinerary", itinerarySchema);

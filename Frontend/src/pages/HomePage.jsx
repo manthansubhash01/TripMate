@@ -132,15 +132,14 @@ const HomePage = () => {
           </div>
           <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-10">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
-              Flight Finder
+              Packing Assistant
             </h1>
             <h2 className="text-lg text-[#414f6f] mb-15">
-              Powered by real-time data to keep your <br /> travels affordable
-              and stress-free.
+              Smart, location-based suggestions <br /> for stress-free packing.
             </h2>
             <p className="text-lg text-[#0F172A] mb-10">
-              Get the best flight deals in seconds. Compare airlines, view
-              flexible dates, and book with confidence.
+              Get personalized packing lists based on your destination, travel
+              dates, weather, and local customs. Travel light, travel right.
             </p>
           </div>
           <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-10">
