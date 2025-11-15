@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import Places from '../assets/PlacesConstant';
 import Footer from '../components/Footer';
 import { Calendar, ArrowRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 
 const HomePage = () => {
+  const {isAuthenticated} = useAuth()
   return (
     <div
       className="relative h-screen w-full bg-cover bg-center"
@@ -27,7 +29,7 @@ const HomePage = () => {
           </p>
           <div>
             <Link
-              to="/signup"
+              to={isAuthenticated ? "/itinerary" : "/signup"}
               className="text-[#0F172A] font-bold bg-[#FFFFFF] hover:bg-[#c2c2c2] opacity-80 p-4 m-2 rounded-lg"
             >
               <span>Start Planning</span>
@@ -130,17 +132,28 @@ const HomePage = () => {
               ></div>
             </div>
           </div>
-          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-10">
+          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-7">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
               Packing Assistant
             </h1>
-            <h2 className="text-lg text-[#414f6f] mb-15">
-              Smart, location-based suggestions <br /> for stress-free packing.
+            <h2 className="text-lg text-[#414f6f] mb-4">
+              Smart, location-based suggestions for stress-free packing.
             </h2>
-            <p className="text-lg text-[#0F172A] mb-10">
+            <div className='flex flex-row gap-4'>
+            <img
+              src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
+              className="h-60"
+            />
+            <p className="text-lg text-[#0F172A] m-7 mt-4">
               Get personalized packing lists based on your destination, travel
               dates, weather, and local customs. Travel light, travel right.
             </p>
+            </div>
+
+            {/* <p className="text-lg text-[#0F172A] mb-10">
+              Get personalized packing lists based on your destination, travel
+              dates, weather, and local customs. Travel light, travel right.
+            </p> */}
           </div>
           <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-10">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">

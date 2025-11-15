@@ -1,17 +1,13 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CircleUserRound, LockKeyhole } from "lucide-react";
-import { Navigate } from "react-router-dom";
- 
+
 function LoginPage() {
-
-
   const [error, setError] = useState("");
 
   const usernameRef = useRef();
   const passwordRef = useRef();
-
 
   const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
@@ -23,9 +19,8 @@ function LoginPage() {
   const handelSubmit = async (event) => {
     event.preventDefault();
 
-  const username = usernameRef.current.value.trim();
-  const password = passwordRef.current.value.trim();
-
+    const username = usernameRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
 
     if (!username || !password) {
       setError("Both fields are required.");
@@ -45,9 +40,11 @@ function LoginPage() {
 
       if (!response.ok) {
         setError(data.message);
+        return;
       }
 
       const token = data.token;
+      console.log(token);
       const result = login(token);
       if (!result.success) {
         setError("You cannot log in with the same token again.");

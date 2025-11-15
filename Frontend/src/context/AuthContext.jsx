@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect,useContext } from "react";
 
 const AuthContext = createContext();
 
@@ -31,7 +31,7 @@ const login = (newToken) => {
 
   localStorage.setItem("isAuthenticated", "true");
   localStorage.setItem("token", newToken);
-  localStorage.removeItem("blockedToken"); // 👈 clear blocked token after success
+  localStorage.removeItem("blockedToken"); 
   setIsAuthenticated(true);
   setToken(newToken);
 

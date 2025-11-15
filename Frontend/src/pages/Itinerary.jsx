@@ -124,7 +124,7 @@ const Itinerary = () => {
           </p>
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-2 gap-x-4 gap-y-2 palce-items-center pl-4 mt-10 mb-10 p-2 bg-[#eeeeee] border border-[#a6a6a6] rounded-lg shadow-2xl shadow-zinc-700"
+            className="grid grid-cols-2 gap-x-4 gap-y-2 palce-items-center pl-4 mt-10 mb-10 p-4 pb-10 bg-[#eeeeee] border border-[#a6a6a6] rounded-lg shadow-2xl shadow-zinc-700"
           >
             <div className="m-2">
               <label className="m-1 text-sm">Origin</label>
@@ -188,8 +188,8 @@ const Itinerary = () => {
         </div>
         <div className="m-2 mt-20 flex justify-center align-baseline w-full h-full">
           <img
-            src="https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            className="h-100 rounded-2xl shadow-2xl shadow-zinc-700"
+            src="https://images.pexels.com/photos/14131701/pexels-photo-14131701.jpeg"
+            className="h-120  rounded-2xl shadow-2xl shadow-zinc-700"
           ></img>
         </div>
       </div>

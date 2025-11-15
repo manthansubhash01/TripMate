@@ -1,48 +1,53 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CircleUserRound, LockKeyhole, Mail, Phone } from "lucide-react";
 
 function SignUpPage() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    email: "",
-    phone: "",
-  });
-
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const usernameRef = useRef();
   const passwordRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
 
-  const handelClick = () => {
-    setFormData({
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-      email: emailRef.current.value,
-      phone: phoneRef.current.value,
-    });
-  };
+  const navigate = useNavigate();
 
   const handelSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+    setSuccess("");
+
+    const username = usernameRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
+    const email = emailRef.current.value.trim();
+    const phone = phoneRef.current.value.trim();
+
+    if (!username || !password || !email || !phone) {
+      setError("All fields are required.");
+      return;
+    }
 
     try {
-      const response = await fetch("url", {
+      const response = await fetch("http://localhost:7001/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ username, password, email, phone }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         setError(data.message);
+        return;
       }
+
+      setSuccess("Registration successful! Redirecting to login...");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (err) {
       console.log(err);
       setError("Server error, please try again");
@@ -121,12 +126,15 @@ function SignUpPage() {
               ></input>
             </div>
             <button
-              onClick={handelClick}
+              type="submit"
               className="w-full h-10 text-white bg-[#0F172A] mb-6 rounded-lg"
             >
               Sign Up
             </button>
-            {error && <p>{error}</p>}
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+            {success && (
+              <p className="text-green-500 text-center mb-4">{success}</p>
+            )}
             <p className="text-[#7F7F7F] text-center">
               Already have an account ?{" "}
               <Link to="/login" className="text-[#0F172A]">

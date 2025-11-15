@@ -1,20 +1,22 @@
-import React from 'react'
-import {NavLink, useNavigate} from 'react-router-dom'
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { LogOut } from "lucide-react";
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
-  }
+  };
 
   return (
     <nav className="sticky top-0 z-50 flex justify-between items-center px-6 py-3 bg-[#FFFFFF] shadow-md">
       <div>
-        {/* <img src="" alt="TripMate" className="text-black"></img> */}<h1>TripMate</h1>
+        {/* <img src="" alt="TripMate" className="text-black"></img> */}
+        <h1>TripMate</h1>
       </div>
       <NavLink
         to="/"
@@ -102,14 +104,15 @@ const Navbar = () => {
           </NavLink>
           <button
             onClick={handleLogout}
-            className="bg-[#0F172A] text-[#FFFFFF] px-4 py-1 rounded-lg  transition duration-300"
+            className="bg-[#0F172A] text-[#FFFFFF] px-4 py-2 rounded-lg hover:bg-[#1E293B] transition duration-300"
           >
+            <LogOut className="inline-block h-5 mb-1 mr-2" />
             Logout
           </button>
         </>
       )}
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
