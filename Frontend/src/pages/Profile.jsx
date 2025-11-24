@@ -12,6 +12,7 @@ import {
   Key,
   Eye,
   EyeOff,
+  Trash2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TripMateLoader from "../components/Loader";
@@ -21,8 +22,10 @@ const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
-  const [itinerary, setItinerary] = useState(null);
+  const [itineraries, setItineraries] = useState([]);
   const [error, setError] = useState("");
+  const [deleting, setDeleting] = useState(null);
+  const [toast, setToast] = useState({ show: false, message: "", type: "" });
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -44,7 +47,7 @@ const Profile = () => {
           setUserInfo(payload);
         }
 
-        // Fetch saved itinerary
+        // Fetch saved itineraries
         const response = await fetch(
           "http://localhost:7001/api/trip/getItinerary",
           {
@@ -56,7 +59,7 @@ const Profile = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setItinerary(data.userItinerary);
+          setItineraries(data.itineraries || []);
         }
       } catch (err) {
         console.error("Error fetching user data:", err);
@@ -129,6 +132,43 @@ const Profile = () => {
     } catch (err) {
       console.error(err);
       setPasswordError("Server error, please try again");
+    }
+  };
+
+  const showToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
+  };
+
+  const handleDeleteItinerary = async (id) => {
+    if (!confirm("Are you sure you want to delete this itinerary?")) {
+      return;
+    }
+
+    setDeleting(id);
+    try {
+      const response = await fetch(
+        `http://localhost:7001/api/trip/deleteItinerary/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        setItineraries(itineraries.filter((itin) => itin._id !== id));
+        showToast("Itinerary deleted successfully!", "success");
+      } else {
+        const data = await response.json();
+        showToast(data.message || "Failed to delete itinerary", "error");
+      }
+    } catch (err) {
+      console.error(err);
+      showToast("Error deleting itinerary", "error");
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -332,11 +372,11 @@ const Profile = () => {
 
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
-          {!itinerary ? (
+          {itineraries.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">✈️</div>
               <p className="text-xl text-[#7F7F7F] mb-6">
-                No saved itinerary yet
+                No saved itineraries yet
               </p>
               <button
                 onClick={() => navigate("/itinerary")}
@@ -346,110 +386,149 @@ const Profile = () => {
               </button>
             </div>
           ) : (
-            <div>
-              {/* Trip Overview */}
-              <div className="bg-[#F9FBFC] p-6 rounded-lg mb-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-2xl font-bold text-[#0F172A] mb-4">
-                      <MapPin className="inline-block h-6 mb-1 mr-2" />
-                      {itinerary.destination}
-                    </h3>
-                    <div className="flex gap-8">
-                      <div>
-                        <Calendar className="inline-block h-5 mb-1 mr-2 text-[#7F7F7F]" />
-                        <span className="text-[#7F7F7F]">
-                          {itinerary.days}{" "}
-                          {itinerary.days === 1 ? "Day" : "Days"}
-                        </span>
+            <div className="grid grid-cols-1 gap-6">
+              {itineraries.map((itin) => (
+                <div
+                  key={itin._id}
+                  className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  {/* Trip Header */}
+                  <div className="p-6 border-b border-[#e0e0e0]">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-[#0F172A] mb-2">
+                          <MapPin className="inline-block h-6 mb-1 mr-2" />
+                          {itin.destination}
+                        </h3>
+                        <div className="flex gap-6 text-[#7F7F7F]">
+                          <div>
+                            <Calendar className="inline-block h-4 mb-1 mr-1" />
+                            <span className="text-sm">
+                              {new Date(itin.startDate).toLocaleDateString()} -{" "}
+                              {new Date(itin.endDate).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <div>
+                            <Clock className="inline-block h-4 mb-1 mr-1" />
+                            <span className="text-sm">
+                              {itin.days} {itin.days === 1 ? "Day" : "Days"}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <Clock className="inline-block h-5 mb-1 mr-2 text-[#7F7F7F]" />
-                        <span className="text-[#7F7F7F]">
-                          {itinerary.enrichedDays?.length || 0} Activities
-                        </span>
-                      </div>
+                      <button
+                        onClick={() => handleDeleteItinerary(itin._id)}
+                        disabled={deleting === itin._id}
+                        className={`px-4 py-2 text-white rounded-lg transition-all duration-200 ${
+                          deleting === itin._id
+                            ? "bg-red-300 cursor-not-allowed"
+                            : "bg-red-500 hover:bg-red-600 active:scale-95"
+                        }`}
+                      >
+                        <Trash2 className="inline-block h-4 mb-1 mr-1" />
+                        {deleting === itin._id ? "Deleting..." : "Delete"}
+                      </button>
                     </div>
                   </div>
-                  <button
-                    onClick={() => navigate("/itinerary")}
-                    className="px-6 py-3 bg-[#0F172A] text-white rounded-lg hover:bg-[#1E293B] transition-all duration-200 active:scale-95"
-                  >
-                    Edit Trip
-                  </button>
-                </div>
-              </div>
 
-              {/* Daily Itinerary */}
-              <div className="mb-6">
-                <h4 className="text-xl font-bold text-[#0F172A] mb-4">
-                  Day-by-Day Plan
-                </h4>
-                <div className="space-y-4">
-                  {itinerary.enrichedDays?.map((day, index) => (
-                    <div
-                      key={index}
-                      className="flex bg-[#F9FBFC] rounded-lg overflow-hidden hover:shadow-lg transition-all duration-200"
-                    >
-                      <div
-                        style={{
-                          backgroundImage: `url('${day.Destination?.image}')`,
-                        }}
-                        className="w-40 h-40 bg-cover bg-center flex-shrink-0"
-                      >
-                        <div className="w-10 h-10 m-3 flex items-center justify-center rounded-full bg-[#0F172A] text-white font-bold">
-                          {day.Day}
+                  {/* Daily Itinerary */}
+                  <div className="p-6">
+                    <h4 className="text-lg font-bold text-[#0F172A] mb-4">
+                      Day-by-Day Plan
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {itin.enrichedDays?.map((day, index) => (
+                        <div
+                          key={index}
+                          className="bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all"
+                        >
+                          <div
+                            style={{
+                              backgroundImage: day.Destination?.image
+                                ? `url('${day.Destination.image}')`
+                                : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                            }}
+                            className="h-32 bg-cover bg-center relative"
+                          >
+                            <div className="absolute top-2 left-2 w-8 h-8 flex items-center justify-center rounded-full bg-[#0F172A] text-white font-bold text-sm">
+                              {day.Day}
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <h5 className="font-bold text-[#0F172A] mb-1 truncate">
+                              {day.Destination?.Name}
+                            </h5>
+                            <p className="text-xs text-[#7F7F7F] mb-1">
+                              <Clock className="inline-block h-3 mb-0.5 mr-1" />
+                              {day.Destination?.BestTimeToVisit}
+                            </p>
+                            <p className="text-xs text-[#7F7F7F] line-clamp-2">
+                              {day.Destination?.Speciality}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-6 flex-1">
-                        <h5 className="text-lg font-bold text-[#0F172A] mb-2">
-                          {day.Destination?.Name}
-                        </h5>
-                        <p className="text-sm text-[#7F7F7F] mb-2">
-                          <Clock className="inline-block h-4 mb-1 mr-1" />
-                          {day.Destination?.BestTimeToVisit}
-                        </p>
-                        <p className="text-sm text-[#7F7F7F]">
-                          {day.Destination?.Speciality}
-                        </p>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Packing List */}
-              {itinerary.packingList && (
-                <div className="bg-[#F9FBFC] p-6 rounded-lg">
-                  <h4 className="text-xl font-bold text-[#0F172A] mb-4">
-                    📦 Packing List
-                  </h4>
-                  <div className="grid grid-cols-3 gap-4">
-                    {Object.entries(itinerary.packingList).map(
-                      ([category, items]) => (
-                        <div key={category}>
-                          <h5 className="font-semibold text-[#0F172A] mb-2">
-                            {category}
-                          </h5>
-                          <ul className="list-disc list-inside text-sm text-[#7F7F7F]">
-                            {Array.isArray(items) ? (
-                              items.map((item, idx) => (
-                                <li key={idx}>{item}</li>
-                              ))
-                            ) : (
-                              <li>{items}</li>
-                            )}
-                          </ul>
+                    {/* Packing List */}
+                    {itin.packingList && (
+                      <div className="mt-6 bg-white p-4 rounded-lg">
+                        <h5 className="font-bold text-[#0F172A] mb-3">
+                          📦 Packing List
+                        </h5>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          {Object.entries(itin.packingList).map(
+                            ([category, items]) => (
+                              <div key={category}>
+                                <h6 className="font-semibold text-[#0F172A] text-sm mb-1">
+                                  {category}
+                                </h6>
+                                <ul className="text-xs text-[#7F7F7F] space-y-0.5">
+                                  {Array.isArray(items) ? (
+                                    items
+                                      .slice(0, 3)
+                                      .map((item, idx) => (
+                                        <li key={idx}>• {item}</li>
+                                      ))
+                                  ) : (
+                                    <li>• {items}</li>
+                                  )}
+                                  {Array.isArray(items) && items.length > 3 && (
+                                    <li className="text-[#0F172A] font-semibold">
+                                      +{items.length - 3} more
+                                    </li>
+                                  )}
+                                </ul>
+                              </div>
+                            )
+                          )}
                         </div>
-                      )
+                      </div>
                     )}
                   </div>
                 </div>
-              )}
+              ))}
             </div>
           )}
         </div>
       </div>
+
+      {/* Toast Notification */}
+      {toast.show && (
+        <div
+          className={`fixed bottom-6 right-6 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50 transition-all ${
+            toast.type === "success"
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
+          }`}
+        >
+          <span className="text-lg">
+            {toast.type === "success" ? "✓" : "✕"}
+          </span>
+          <span className="font-medium">{toast.message}</span>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

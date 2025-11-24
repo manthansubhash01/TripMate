@@ -1,12 +1,12 @@
 import React from "react";
-import { Calendar, MapPin, Plane, Hotel, Copyright } from "lucide-react";
+import { Calendar, MapPin, Package, DollarSign, Copyright } from "lucide-react";
 
 const Footer = () => {
   return (
     <div className="flex-col justify-around p-15 bg-[#1E293B] ">
       <div className="h-70 flex justify-between">
         <div>
-          <img className="text-white" src="" alt="TripMate"></img>
+          <h2 className="text-white text-2xl font-bold mb-3">TripMate</h2>
           <p className="text-white pt-3 mb-10">
             Your personal travel companion <br /> to plan, explore, and
             experience the <br />
@@ -30,12 +30,12 @@ const Footer = () => {
             <span className="text-[#8d9db8] ml-2">World Map</span>
           </div>
           <div className="mt-3 mb-3">
-            <Plane color="#ffffff" className="inline-block" />
-            <span className="text-[#8d9db8] ml-2">Flight Finder</span>
+            <Package color="#ffffff" className="inline-block" />
+            <span className="text-[#8d9db8] ml-2">Packing Assistant</span>
           </div>
           <div className="mt-3 mb-3">
-            <Hotel color="#ffffff" className="inline-block" />
-            <span className="text-[#8d9db8] ml-2">Hotel Suggestions</span>
+            <DollarSign color="#ffffff" className="inline-block" />
+            <span className="text-[#8d9db8] ml-2">Expense Tracker</span>
           </div>
         </div>
         <div>
@@ -60,7 +60,8 @@ const Footer = () => {
       <hr className="text-[#4a5870] " />
       <div className="h-15 flex justify-between">
         <p className="text-[#8d9db8] mt-7 mb-7">
-          <Copyright className="inline-block h-4 mb-1" /> 2025 TripMate. All rights reserved.
+          <Copyright className="inline-block h-4 mb-1" /> 2025 TripMate. All
+          rights reserved.
         </p>
         <div className="w-100 flex justify-between">
           <p className="text-[#8d9db8] mt-7 mb-7">Privacy Policy</p>

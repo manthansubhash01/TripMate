@@ -1,16 +1,15 @@
-import React from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay,FreeMode} from 'swiper/modules';
-import 'swiper/css'
-import { Link } from 'react-router-dom';
-import Places from '../assets/PlacesConstant';
-import Footer from '../components/Footer';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+import "swiper/css";
+import { Link } from "react-router-dom";
+import Places from "../assets/PlacesConstant";
+import Footer from "../components/Footer";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
-
 const HomePage = () => {
-  const {isAuthenticated} = useAuth()
+  const { isAuthenticated } = useAuth();
   return (
     <div
       className="relative h-screen w-full bg-cover bg-center"
@@ -19,7 +18,7 @@ const HomePage = () => {
       }}
     >
       <div className="relative z-10 mr-18 flex items-center justify-end h-[80%] text-white text-center">
-        <div>
+        <div className="-mt-30">
           <h1 className="text-6xl font-bold mb-4">
             Discover the world with <br /> TripMate
           </h1>
@@ -39,7 +38,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="relative z-10 h-100 -mt-25">
+      <div className="relative z-10 h-100 -mt-55">
         <Swiper
           modules={[Autoplay]}
           slidesPerView="auto"
@@ -111,7 +110,7 @@ const HomePage = () => {
           journey.
         </h3>
         <div className="grid grid-cols-2 grid-rows-2 gap-4">
-          <div className="bg-[#fbfbfb] row-span-2 h-200 rounded-xl border-[#a3a3a3] border-1 p-10">
+          <div className="bg-[#fbfbfb] row-span-2 h-200 rounded-xl border-[#a3a3a3] border-1 p-10 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-[#0F172A]">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
               Interactive World Map
             </h1>
@@ -132,22 +131,22 @@ const HomePage = () => {
               ></div>
             </div>
           </div>
-          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-7">
+          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-7 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-[#0F172A]">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
               Packing Assistant
             </h1>
             <h2 className="text-lg text-[#414f6f] mb-4">
               Smart, location-based suggestions for stress-free packing.
             </h2>
-            <div className='flex flex-row gap-4'>
-            <img
-              src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
-              className="h-60"
-            />
-            <p className="text-lg text-[#0F172A] m-7 mt-4">
-              Get personalized packing lists based on your destination, travel
-              dates, weather, and local customs. Travel light, travel right.
-            </p>
+            <div className="flex flex-row gap-4">
+              <img
+                src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
+                className="h-60"
+              />
+              <p className="text-lg text-[#0F172A] m-7 mt-4">
+                Get personalized packing lists based on your destination, travel
+                dates, weather, and local customs. Travel light, travel right.
+              </p>
             </div>
 
             {/* <p className="text-lg text-[#0F172A] mb-10">
@@ -155,24 +154,135 @@ const HomePage = () => {
               dates, weather, and local customs. Travel light, travel right.
             </p> */}
           </div>
-          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-10">
+          <div className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border-1 p-7 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-[#0F172A]">
             <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
-              Accommodation Suggestions
+              Expense Tracker
             </h1>
-            <h2 className="text-lg text-[#414f6f] mb-15">
-              Whether it's luxury or budget, we’ve got <br /> the best options
-              for your journey.
+            <h2 className="text-lg text-[#414f6f] mb-4">
+              Keep your budget on track with real-time expense monitoring and
+              insights.
             </h2>
-            <p className="text-lg text-[#0F172A] mb-10">
-              Browse handpicked hotels, hostels, and homestays. Filter by price,
-              location, and vibe to find your perfect stay.
-            </p>
+            <div className="flex flex-row gap-4">
+              <img
+                src="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg"
+                className="h-60"
+              />
+              <p className="text-lg text-[#0F172A] m-7 mt-4">
+                Track every penny spent on your journey. Categorize expenses,
+                support multiple currencies, and get spending summaries to stay
+                within budget.
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
+      <div className="bg-white p-20">
+        <h1 className="text-4xl text-center font-bold text-[#0F172A] mb-5">
+          What Travelers Say
+        </h1>
+        <p className="text-lg text-center text-[#7F7F7F] mb-15">
+          Join thousands of happy travelers who trust TripMate
+        </p>
+        <Swiper
+          modules={[Autoplay, FreeMode]}
+          slidesPerView={3}
+          spaceBetween={30}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          className="w-full"
+        >
+          <SwiperSlide>
+            <div className="bg-[#F9FBFC] p-8 rounded-2xl shadow-lg h-80 flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+              <div>
+                <div className="flex mb-4">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                </div>
+                <p className="text-[#0F172A] text-lg mb-6">
+                  "TripMate made planning my European trip so easy! The AI
+                  itinerary was spot-on and saved me hours of research."
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
+                <div>
+                  <p className="font-bold text-[#0F172A]">Sarah Johnson</p>
+                  <p className="text-sm text-[#7F7F7F]">Paris, France</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="bg-[#F9FBFC] p-8 rounded-2xl shadow-lg h-80 flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+              <div>
+                <div className="flex mb-4">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                </div>
+                <p className="text-[#0F172A] text-lg mb-6">
+                  "The expense tracker is a game-changer! I stayed within budget
+                  and knew exactly where my money was going throughout my trip."
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500"></div>
+                <div>
+                  <p className="font-bold text-[#0F172A]">Michael Chen</p>
+                  <p className="text-sm text-[#7F7F7F]">Tokyo, Japan</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="bg-[#F9FBFC] p-8 rounded-2xl shadow-lg h-80 flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+              <div>
+                <div className="flex mb-4">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                </div>
+                <p className="text-[#0F172A] text-lg mb-6">
+                  "Love the packing assistant! Never forgot anything important
+                  again. It even reminded me about adapters I would have
+                  forgotten."
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-400 to-red-500"></div>
+                <div>
+                  <p className="font-bold text-[#0F172A]">Emma Williams</p>
+                  <p className="text-sm text-[#7F7F7F]">Bali, Indonesia</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="bg-[#F9FBFC] p-8 rounded-2xl shadow-lg h-80 flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+              <div>
+                <div className="flex mb-4">
+                  <span className="text-yellow-400 text-2xl">★★★★★</span>
+                </div>
+                <p className="text-[#0F172A] text-lg mb-6">
+                  "Best travel planning app I've used! The interactive map
+                  helped me discover hidden gems I wouldn't have found
+                  otherwise."
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-400 to-yellow-500"></div>
+                <div>
+                  <p className="font-bold text-[#0F172A]">David Martinez</p>
+                  <p className="text-sm text-[#7F7F7F]">Barcelona, Spain</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+
       <Footer />
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

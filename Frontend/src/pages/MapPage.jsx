@@ -3,8 +3,10 @@ import MapFlyTo from "../components/MapFlyTo";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import SearchBar from "../components/Searchbar";
+import Map from "../components/Map";
+import AutoComplete from "../components/AutoComplete";
 
-const Map = () => {
+const MapPage = () => {
   const [location, setLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState([0, 0]); 
 
@@ -28,7 +30,7 @@ const Map = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="realtive">
       <div className="absolute m-5 z-50">
         <SearchBar onSearch={handleSearch} />
       </div>
@@ -56,8 +58,12 @@ const Map = () => {
           </Marker>
         )}
       </MapContainer>
+        {/* <div style={{ width: "100%", height: "100vh" }}></div> */}
+        {/* <AutoComplete />
+
+        <Map /> */}
     </div>
   );
 };
 
-export default Map;
+export default MapPage;

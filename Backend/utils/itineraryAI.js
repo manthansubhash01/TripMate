@@ -27,7 +27,7 @@ Strictly NO extra text before or after JSON.`;
   const res = await axios.post(
     "https://openrouter.ai/api/v1/chat/completions",
     {
-      model: "meta-llama/llama-4-maverick:free",
+      model: "meta-llama/llama-4-maverick",
       messages: [
         {
           role: "user",

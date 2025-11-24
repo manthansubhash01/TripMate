@@ -1,18 +1,23 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage"
+import SignUpPage from "./pages/SignUpPage";
 import Profile from "./pages/Profile";
-import Map from "./pages/Map";
+import MapPage from "./pages/MapPage";
 import Itinerary from "./pages/Itinerary";
+import ExpenseTracker from "./pages/ExpenseTracker";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 
 function App() {
-
   return (
     <Router>
       <AuthProvider>
@@ -41,7 +46,15 @@ function App() {
             path="/map"
             element={
               <ProtectedRoute>
-                <Map />
+                <MapPage />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/expenses"
+            element={
+              <ProtectedRoute>
+                <ExpenseTracker />
               </ProtectedRoute>
             }
           ></Route>
@@ -49,7 +62,6 @@ function App() {
       </AuthProvider>
     </Router>
   );
-
 }
 
 export default App;

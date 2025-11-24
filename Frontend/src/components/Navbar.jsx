@@ -90,6 +90,18 @@ const Navbar = () => {
             Itinerary
           </NavLink>
           <NavLink
+            to="/expenses"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-full font-semibold transition ${
+                isActive
+                  ? "bg-black text-white"
+                  : "text-[#000000] hover:text-black hover:bg-[#a6a6a6]"
+              }`
+            }
+          >
+            Expenses
+          </NavLink>
+          <NavLink
             to="/profile"
             className={({ isActive }) =>
               `px-4 py-2 rounded-full font-semibold transition ${
