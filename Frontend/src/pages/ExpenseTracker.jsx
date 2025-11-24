@@ -81,11 +81,14 @@ const ExpenseTracker = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await fetch("http://localhost:7001/api/expense/all", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://tripmate-bgz6.onrender.com/api/expense/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -101,7 +104,7 @@ const ExpenseTracker = () => {
   const fetchSummary = async () => {
     try {
       const response = await fetch(
-        "http://localhost:7001/api/expense/summary",
+        "https://tripmate-bgz6.onrender.com/api/expense/summary",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -124,8 +127,8 @@ const ExpenseTracker = () => {
 
     try {
       const url = editingExpense
-        ? `http://localhost:7001/api/expense/update/${editingExpense._id}`
-        : "http://localhost:7001/api/expense/add";
+        ? `https://tripmate-bgz6.onrender.com/api/expense/update/${editingExpense._id}`
+        : "https://tripmate-bgz6.onrender.com/api/expense/add";
 
       const method = editingExpense ? "PUT" : "POST";
 
@@ -179,7 +182,7 @@ const ExpenseTracker = () => {
     setDeleting(id);
     try {
       const response = await fetch(
-        `http://localhost:7001/api/expense/delete/${id}`,
+        `https://tripmate-bgz6.onrender.com/api/expense/delete/${id}`,
         {
           method: "DELETE",
           headers: {

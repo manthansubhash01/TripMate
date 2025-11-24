@@ -55,7 +55,7 @@ const Itinerary = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:7001/api/trip/itinerary",
+          "https://tripmate-bgz6.onrender.com/api/trip/itinerary",
           {
             method: "POST",
             headers: {
@@ -93,7 +93,7 @@ const Itinerary = () => {
     setSaving(true);
     try {
       const response = await fetch(
-        "http://localhost:7001/api/trip/saveItinerary",
+        "https://tripmate-bgz6.onrender.com/api/trip/saveItinerary",
         {
           method: "POST",
           headers: {

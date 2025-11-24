@@ -49,7 +49,7 @@ const Profile = () => {
 
         // Fetch saved itineraries
         const response = await fetch(
-          "http://localhost:7001/api/trip/getItinerary",
+          "https://tripmate-bgz6.onrender.com/api/trip/getItinerary",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:7001/api/auth/changePassword",
+        "https://tripmate-bgz6.onrender.com/api/auth/changePassword",
         {
           method: "POST",
           headers: {
@@ -148,7 +148,7 @@ const Profile = () => {
     setDeleting(id);
     try {
       const response = await fetch(
-        `http://localhost:7001/api/trip/deleteItinerary/${id}`,
+        `https://tripmate-bgz6.onrender.com/api/trip/deleteItinerary/${id}`,
         {
           method: "DELETE",
           headers: {
