@@ -52,7 +52,7 @@ const HomePage = () => {
             transition: { duration: 1, ease: "easeOut", staggerChildren: 0.2 },
           },
         }}
-        className="flex p-20 gap-20 items-center"
+        className="flex flex-col lg:flex-row p-6 sm:p-10 md:p-16 lg:p-20 gap-8 sm:gap-12 lg:gap-20 items-center"
       >
         {/* Left text block */}
         <motion.div
@@ -64,15 +64,16 @@ const HomePage = () => {
               transition: { duration: 0.9, ease: "easeOut" },
             },
           }}
+          className="flex-1"
         >
           <motion.p
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="text-[#0F172A] bg-[#eaeaea] p-2 m-3 w-fit rounded-full inline-block"
+            className="text-[#0F172A] bg-[#eaeaea] p-2 px-4 w-fit rounded-full inline-flex items-center gap-2 text-sm"
           >
-            <Calendar className="inline-block h-5 mb-1" />
+            <Calendar className="h-4 w-4" />
             Main Feature
           </motion.p>
 
@@ -81,9 +82,9 @@ const HomePage = () => {
               hidden: { opacity: 0, y: 40 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="text-[#0F172A] text-5xl font-bold m-3 mt-10 mb-10"
+            className="text-[#0F172A] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-6 mb-6"
           >
-            AI-Powered Itinerary <br /> Generator
+            AI-Powered Itinerary <br className="hidden sm:block" /> Generator
           </motion.h1>
 
           <motion.p
@@ -91,7 +92,7 @@ const HomePage = () => {
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="m-3 mb-10 text-xl text-gray-700"
+            className="mb-8 text-sm sm:text-base md:text-lg text-gray-700"
           >
             Create personalized travel plans in seconds. Our intelligent
             itinerary generator analyzes your preferences, budget, and travel
@@ -104,7 +105,7 @@ const HomePage = () => {
               hidden: {},
               visible: { transition: { staggerChildren: 0.1 } },
             }}
-            className="m-3 text-lg list-disc list-inside text-gray-700 space-y-2"
+            className="text-base sm:text-lg list-disc list-inside text-gray-700 space-y-2"
           >
             {[
               "Location-specific recommendations",
@@ -130,12 +131,12 @@ const HomePage = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative"
+          className="relative flex-1 w-full max-w-md lg:max-w-none"
         >
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="h-150 w-150 bg-cover shadow-2xl shadow-gray-900 rounded-2xl"
+            className="h-64 sm:h-80 md:h-96 lg:h-150 w-full bg-cover shadow-2xl shadow-gray-900 rounded-2xl"
             style={{
               backgroundImage: `url("https://images.unsplash.com/photo-1689194581129-8d6bc190cb1a?q=80&w=3270&auto=format&fit=crop")`,
             }}
@@ -143,36 +144,35 @@ const HomePage = () => {
         </motion.div>
       </motion.div>
 
-      <div className="bg-[#eeeeee] p-20 h-300">
-        <h1 className="text-4xl text-center font-bold text-[#0F172A] m-3">
+      <div className="bg-[#eeeeee] p-6 sm:p-10 md:p-16 lg:p-20 min-h-300">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center font-bold text-[#0F172A] mb-4">
           Everything You Need For Perfect Travel
         </h1>
-        <h3 className="text-lg text-center text-[#0F172A] mb-25">
+        <h3 className="text-sm sm:text-base md:text-lg text-center text-[#0F172A] mb-12 sm:mb-16 md:mb-20 max-w-3xl mx-auto px-4">
           Our comprehensive set of tools makes planning your next adventure
-          simple and enjoyable.
-          <br /> From finding the best places to customizing your entire
-          journey.
+          simple and enjoyable. From finding the best places to customizing your
+          entire journey.
         </h3>
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ staggerChildren: 0.25 }}
-          className="grid grid-cols-2 grid-rows-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
         >
           <motion.div
             variants={revealFromBottom}
             style={{ transformOrigin: "bottom" }}
-            className="bg-[#fbfbfb] row-span-2 h-200 rounded-xl border-[#a3a3a3] border p-10 overflow-hidden"
+            className="bg-[#fbfbfb] md:row-span-2 min-h-96 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-8 md:p-10 overflow-hidden"
           >
-            <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
+            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
               Interactive World Map
             </h1>
-            <h2 className="text-lg text-[#414f6f] mb-15">
-              Visualize your journey and unlock travel <br /> inspiration with
-              every click.
+            <h2 className="text-base sm:text-lg text-[#414f6f] mb-6 sm:mb-8 md:mb-12">
+              Visualize your journey and unlock travel inspiration with every
+              click.
             </h2>
-            <p className="text-lg text-[#0F172A] mb-10">
+            <p className="text-sm sm:text-base text-[#0F172A] mb-6 sm:mb-8">
               Discover the world at a glance. Zoom in, explore continents, and
               pick your dream destinations effortlessly.
             </p>
@@ -181,55 +181,52 @@ const HomePage = () => {
                 style={{
                   backgroundImage: `url("https://images.pexels.com/photos/3243090/pexels-photo-3243090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")`,
                 }}
-                className="h-110 w-140 bg-cover"
+                className="h-48 sm:h-64 md:h-80 lg:h-110 w-full max-w-md bg-cover bg-center rounded-lg"
               ></div>
             </div>
           </motion.div>
           <motion.div
             variants={revealFromCenterRight}
             style={{ transformOrigin: "left center" }}
-            className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border p-7 overflow-hidden"
+            className="bg-[#fbfbfb] min-h-80 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-7 overflow-hidden"
           >
-            <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
+            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
               Packing Assistant
             </h1>
-            <h2 className="text-lg text-[#414f6f] mb-4">
+            <h2 className="text-base sm:text-lg text-[#414f6f] mb-4">
               Smart, location-based suggestions for stress-free packing.
             </h2>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <img
                 src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
-                className="h-60"
+                className="h-48 sm:h-60 w-full sm:w-auto object-cover rounded-lg"
+                alt="Packing"
               />
-              <p className="text-lg text-[#0F172A] m-7 mt-4">
+              <p className="text-sm sm:text-base md:text-lg text-[#0F172A]">
                 Get personalized packing lists based on your destination, travel
                 dates, weather, and local customs. Travel light, travel right.
               </p>
             </div>
-
-            {/* <p className="text-lg text-[#0F172A] mb-10">
-              Get personalized packing lists based on your destination, travel
-              dates, weather, and local customs. Travel light, travel right.
-            </p> */}
           </motion.div>
           <motion.div
             variants={revealFromTop}
             style={{ transformOrigin: "top" }}
-            className="bg-[#fbfbfb] h-98 rounded-xl border-[#a3a3a3] border p-7 overflow-hidden"
+            className="bg-[#fbfbfb] min-h-80 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-7 overflow-hidden"
           >
-            <h1 className="text-3xl font-medium text-[#0F172A] mb-3">
+            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
               Expense Tracker
             </h1>
-            <h2 className="text-lg text-[#414f6f] mb-4">
+            <h2 className="text-base sm:text-lg text-[#414f6f] mb-4">
               Keep your budget on track with real-time expense monitoring and
               insights.
             </h2>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <img
                 src="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg"
-                className="h-60"
+                className="h-48 sm:h-60 w-full sm:w-auto object-cover rounded-lg"
+                alt="Expense tracking"
               />
-              <p className="text-lg text-[#0F172A] m-7 mt-4">
+              <p className="text-sm sm:text-base md:text-lg text-[#0F172A]">
                 Track every penny spent on your journey. Categorize expenses,
                 support multiple currencies, and get spending summaries to stay
                 within budget.
@@ -239,17 +236,27 @@ const HomePage = () => {
         </motion.div>
       </div>
 
-      <div className="bg-white p-20">
-        <h1 className="text-4xl text-center font-bold text-[#0F172A] mb-5">
+      <div className="bg-white p-6 sm:p-10 md:p-16 lg:p-20">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center font-bold text-[#0F172A] mb-4">
           What Travelers Say
         </h1>
-        <p className="text-lg text-center text-[#7F7F7F] mb-15">
+        <p className="text-base sm:text-lg text-center text-[#7F7F7F] mb-10 sm:mb-15">
           Join thousands of happy travelers who trust TripMate
         </p>
         <Swiper
           modules={[Autoplay, FreeMode]}
-          slidesPerView={3}
-          spaceBetween={30}
+          slidesPerView={1}
+          spaceBetween={20}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 25,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
           loop={true}
           autoplay={{
             delay: 3000,

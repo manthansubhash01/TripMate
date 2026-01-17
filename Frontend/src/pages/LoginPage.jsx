@@ -69,7 +69,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden p-4">
       <video
         autoPlay
         muted
@@ -85,35 +85,39 @@ function LoginPage() {
 
       <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
 
-      <div className="relative z-10 flex w-full max-w-5xl rounded-2xl overflow-hidden bg-white shadow-2xl">
+      <div className="relative z-10 flex flex-col md:flex-row w-full max-w-5xl rounded-2xl overflow-hidden bg-white shadow-2xl">
         <div className="hidden md:block md:w-1/2">
           <img
             src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
-            alt=""
-            className="object-cover h-140 brightness-70"
-          ></img>
+            alt="Travel destination"
+            className="object-cover h-full w-full brightness-70"
+          />
         </div>
-        <div className="m-auto">
-          <h2 className="text-3xl font-extrabold mb-1">Welcome back</h2>
-          <p className="text-[#7F7F7F] mb-15">Login to continue your journey</p>
+        <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-10 flex flex-col justify-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold mb-2">
+            Welcome back
+          </h2>
+          <p className="text-[#7F7F7F] text-sm sm:text-base mb-8 sm:mb-10 md:mb-15">
+            Login to continue your journey
+          </p>
           <form onSubmit={handelSubmit}>
-            <div className="mb-6 relative">
+            <div className="mb-5 sm:mb-6 relative">
               <CircleUserRound
                 color="#000000"
-                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5"
               />
               <input
                 type="text"
                 placeholder="Username"
                 name="username"
                 ref={usernameRef}
-                className="w-80 pl-10 px-4 py-2 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
-              ></input>
+                className="w-full pl-9 sm:pl-10 px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+              />
             </div>
-            <div className="mb-10 relative">
+            <div className="mb-6 sm:mb-8 md:mb-10 relative">
               <LockKeyhole
                 color="#000000"
-                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+                className="inline-block absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5"
               />
 
               <input
@@ -123,28 +127,35 @@ function LoginPage() {
                 minLength={6}
                 maxLength={12}
                 ref={passwordRef}
-                className="w-80 pl-10 px-4 py-2 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
-              ></input>
+                className="w-full pl-9 sm:pl-10 px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+              />
             </div>
             <button
               type="submit"
-              className="w-full h-10 text-white bg-[#0F172A] mb-3 rounded-lg"
+              className="w-full h-10 sm:h-11 text-sm sm:text-base text-white bg-[#0F172A] mb-3 rounded-lg hover:bg-[#1E293B] transition-colors active:scale-95"
             >
               Login
             </button>
-            {error && <p className="mb-2 text-center text-red-500">{error}</p>}
+            {error && (
+              <p className="mb-2 text-center text-sm sm:text-base text-red-500">
+                {error}
+              </p>
+            )}
 
             <button
               type="button"
               onClick={handleUseTestCredentials}
-              className="mb-4 w-full rounded-lg border border-[#0F172A] px-4 py-2 text-sm font-semibold text-[#0F172A] hover:bg-[#0F172A] hover:text-white transition-colors"
+              className="mb-4 w-full rounded-lg border border-[#0F172A] px-4 py-2 text-xs sm:text-sm font-semibold text-[#0F172A] hover:bg-[#0F172A] hover:text-white transition-colors"
             >
               Use test credentials
             </button>
 
-            <p className="text-[#7F7F7F] text-center">
-              Don't have an account ?{" "}
-              <Link to="/signup" className="text-[#0F172A]">
+            <p className="text-[#7F7F7F] text-xs sm:text-sm text-center">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-[#0F172A] font-semibold hover:underline"
+              >
                 Sign Up
               </Link>
             </p>

@@ -64,7 +64,7 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative h-screen  w-full overflow-hidden bg-black">
+    <section className="relative h-screen w-full overflow-hidden bg-black">
       {Places.map((place, i) => (
         <motion.div
           key={place.image}
@@ -83,7 +83,7 @@ export default function HeroSection() {
         </motion.div>
       ))}
 
-      <div className="relative z-10 flex h-full items-center px-10 md:px-20 max-w-3xl">
+      <div className="relative z-10 flex h-full items-center px-4 sm:px-6 md:px-10 lg:px-20 max-w-3xl">
         <motion.div
           key={heroPlace.name}
           initial={{ opacity: 0, y: 24 }}
@@ -92,7 +92,7 @@ export default function HeroSection() {
           className="text-white"
         >
           <motion.p
-            className="uppercase tracking-[0.25em] text-xs md:text-sm opacity-80"
+            className="uppercase tracking-[0.25em] text-[10px] sm:text-xs md:text-sm opacity-80"
             initial={{ opacity: 0, y: -8, letterSpacing: "0.4em" }}
             animate={{ opacity: 1, y: 0, letterSpacing: "0.25em" }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -101,7 +101,7 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.h1
-            className="mt-3 text-9xl md:text-7xl  font-extrabold leading-tight drop-shadow-lg"
+            className="mt-3 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight drop-shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.25 }}
@@ -111,7 +111,7 @@ export default function HeroSection() {
 
           <motion.p
             key={heroPlace.description}
-            className="mt-4 max-w-md text-sm md:text-base opacity-90 drop-shadow"
+            className="mt-4 max-w-md text-xs sm:text-sm md:text-base opacity-90 drop-shadow"
             initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
@@ -124,7 +124,7 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="mt-8 inline-flex"
+            className="mt-6 sm:mt-8 inline-flex"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -133,19 +133,19 @@ export default function HeroSection() {
           >
             <Link
               to={isAuthenticated ? "/itinerary" : "/signup"}
-              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-black/40 transition hover:bg-white"
+              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 shadow-lg shadow-black/40 transition hover:bg-white"
             >
               <span>
                 {isAuthenticated ? "Plan your trip" : "Start planning"}
               </span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
             </Link>
           </motion.div>
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-8 flex justify-center z-20 md:inset-auto md:right-16 md:top-1/2 md:-translate-y-1/2 md:block">
-        <div className="relative h-[260px] w-[420px] md:h-[360px]">
+      <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 flex justify-center z-20 md:inset-auto md:right-8 lg:right-16 md:top-1/2 md:-translate-y-1/2 md:block">
+        <div className="relative h-[200px] w-[320px] sm:h-[240px] sm:w-[380px] md:h-[300px] md:w-[420px] lg:h-[360px]">
           {visibleCards.map(({ place, placeIndex, offset }) => {
             const x = offset * CARD_SPACING;
             const scale = 1 - offset * 0.08;
@@ -155,7 +155,7 @@ export default function HeroSection() {
             return (
               <motion.div
                 key={place.name + placeIndex}
-                className="absolute inset-y-0 left-0 h-full w-[230px] cursor-pointer overflow-hidden rounded-2xl shadow-2xl shadow-black/40 will-change-transform"
+                className="absolute inset-y-0 left-0 h-full w-[180px] sm:w-[210px] md:w-[230px] cursor-pointer overflow-hidden rounded-2xl shadow-2xl shadow-black/40 will-change-transform"
                 style={{
                   backgroundImage: `url(${place.image})`,
                   backgroundSize: "cover",
@@ -168,11 +168,11 @@ export default function HeroSection() {
                 onClick={() => setIndex(placeIndex)}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-left text-white">
-                  <p className="text-[11px] uppercase tracking-[0.2em] opacity-70">
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-left text-white">
+                  <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.2em] opacity-70">
                     {place.speciality}
                   </p>
-                  <p className="mt-1 text-sm font-semibold line-clamp-1">
+                  <p className="mt-1 text-xs sm:text-sm font-semibold line-clamp-1">
                     {place.name}
                   </p>
                 </div>

@@ -177,36 +177,49 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FBFC]">
-      <div className="px-20 py-10">
-        {/* Header Section */}
-        <div className="flex justify-between items-center mb-10">
-          <div>
-            <h1 className="text-5xl font-bold text-[#0F172A] mb-2">
-              My Profile
-            </h1>
-            <p className="text-[#7F7F7F]">
-              Manage your account and view your travel plans
-            </p>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden py-16 sm:py-20 md:py-24"
+        style={{
+          backgroundImage:
+            "url('https://images.pexels.com/photos/34840013/pexels-photo-34840013.jpeg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative px-4 sm:px-8 md:px-12 lg:px-20">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+            <div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+                My Profile
+              </h1>
+              <p className="text-base sm:text-lg text-slate-300 max-w-2xl">
+                Manage your account and view your travel plans
+              </p>
+            </div>
+            <button
+              onClick={() => setShowPasswordForm(!showPasswordForm)}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#0F172A] font-semibold rounded-full hover:bg-slate-100 transition-all duration-200 active:scale-95 shadow-xl text-sm sm:text-base"
+            >
+              <Key className="h-5 w-5 mr-2" />
+              Change Password
+            </button>
           </div>
-          <button
-            onClick={() => setShowPasswordForm(!showPasswordForm)}
-            className="px-6 py-3 bg-[#0F172A] text-white rounded-lg hover:bg-[#1E293B] transition-all duration-200 active:scale-95"
-          >
-            <Key className="inline-block h-5 mb-1 mr-2" />
-            Change Password
-          </button>
         </div>
+      </div>
 
+      <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16 bg-[#F9FBFC]">
         {/* Change Password Form */}
         {showPasswordForm && (
-          <div className="bg-[#FFFFFF] rounded-2xl shadow-2xl p-10 mb-10">
-            <h3 className="text-2xl font-bold text-[#0F172A] mb-6">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-10 border border-slate-100">
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-6 sm:mb-8">
               Change Password
             </h3>
-            <form onSubmit={handlePasswordChange} className="max-w-md">
-              <div className="mb-4 relative">
-                <label className="block text-sm font-semibold text-[#0F172A] mb-2">
+            <form onSubmit={handlePasswordChange} className="max-w-lg">
+              <div className="mb-5 relative">
+                <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">
                   Current Password
                 </label>
                 <input
@@ -218,23 +231,23 @@ const Profile = () => {
                       currentPassword: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 pr-10 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-11 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                   placeholder="Enter current password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  className="absolute right-3 top-10 text-[#7F7F7F]"
+                  className="absolute right-3 top-9 sm:top-9 text-slate-500 hover:text-slate-700 transition"
                 >
                   {showCurrentPassword ? (
-                    <EyeOff className="h-5" />
+                    <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
                   ) : (
-                    <Eye className="h-5" />
+                    <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
                   )}
                 </button>
               </div>
-              <div className="mb-4 relative">
-                <label className="block text-sm font-semibold text-[#0F172A] mb-2">
+              <div className="mb-5 relative">
+                <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">
                   New Password
                 </label>
                 <input
@@ -246,24 +259,24 @@ const Profile = () => {
                       newPassword: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 pr-10 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-11 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                   placeholder="Enter new password"
                   minLength={6}
                 />
                 <button
                   type="button"
                   onClick={() => setShowNewPassword(!showNewPassword)}
-                  className="absolute right-3 top-10 text-[#7F7F7F]"
+                  className="absolute right-3 top-9 sm:top-9 text-slate-500 hover:text-slate-700 transition"
                 >
                   {showNewPassword ? (
-                    <EyeOff className="h-5" />
+                    <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
                   ) : (
-                    <Eye className="h-5" />
+                    <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
                   )}
                 </button>
               </div>
-              <div className="mb-4 relative">
-                <label className="block text-sm font-semibold text-[#0F172A] mb-2">
+              <div className="mb-5 relative">
+                <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wide text-slate-600 mb-2">
                   Confirm New Password
                 </label>
                 <input
@@ -275,31 +288,35 @@ const Profile = () => {
                       confirmPassword: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 pr-10 border border-[#a6a6a6] rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-11 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                   placeholder="Confirm new password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-10 text-[#7F7F7F]"
+                  className="absolute right-3 top-9 sm:top-9 text-slate-500 hover:text-slate-700 transition"
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="h-5" />
+                    <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
                   ) : (
-                    <Eye className="h-5" />
+                    <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
                   )}
                 </button>
               </div>
               {passwordError && (
-                <p className="text-red-500 text-sm mb-4">{passwordError}</p>
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm mb-5">
+                  {passwordError}
+                </div>
               )}
               {passwordSuccess && (
-                <p className="text-green-500 text-sm mb-4">{passwordSuccess}</p>
+                <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-xl text-sm mb-5">
+                  {passwordSuccess}
+                </div>
               )}
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-[#0F172A] text-white rounded-lg hover:bg-[#1E293B] transition-all duration-200 active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#0F172A] text-white font-semibold rounded-full hover:bg-slate-900 transition-all duration-200 active:scale-95 shadow-xl"
                 >
                   Update Password
                 </button>
@@ -315,7 +332,7 @@ const Profile = () => {
                     setPasswordError("");
                     setPasswordSuccess("");
                   }}
-                  className="px-6 py-2 bg-[#eeeeee] text-[#0F172A] rounded-lg hover:bg-[#d4d4d4] transition-all duration-200 active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-[#0F172A] font-semibold rounded-full hover:bg-slate-200 transition-all duration-200 active:scale-95"
                 >
                   Cancel
                 </button>
@@ -325,38 +342,46 @@ const Profile = () => {
         )}
 
         {/* User Info Card */}
-        <div className="bg-[#FFFFFF] rounded-2xl shadow-2xl p-10 mb-10">
-          <div className="flex items-center mb-8">
-            <div className="w-24 h-24 bg-[#0F172A] rounded-full flex items-center justify-center text-white text-3xl font-bold mr-6">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-10 border border-slate-100">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start mb-8 sm:mb-10">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-br from-[#0F172A] to-[#334155] rounded-2xl flex items-center justify-center text-white text-3xl sm:text-4xl font-bold mb-4 sm:mb-0 sm:mr-8 shadow-xl">
               {userInfo?.username?.charAt(0).toUpperCase() || "U"}
             </div>
-            <div>
-              <h2 className="text-3xl font-bold text-[#0F172A]">
+            <div className="text-center sm:text-left">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-2">
                 {userInfo?.username || "User"}
               </h2>
-              <p className="text-[#7F7F7F]">Traveler since 2024</p>
+              <p className="text-sm sm:text-base text-slate-500">
+                Traveler since 2024
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
-            <div className="bg-[#F9FBFC] p-5 rounded-lg">
-              <User className="inline-block h-5 mb-1 mr-2 text-[#0F172A]" />
-              <span className="font-semibold text-[#0F172A]">Username</span>
-              <p className="text-[#7F7F7F] mt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-200">
+              <User className="h-6 w-6 text-[#0F172A] mb-3" />
+              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
+                Username
+              </span>
+              <p className="text-[#0F172A] font-medium text-lg">
                 {userInfo?.username || "N/A"}
               </p>
             </div>
-            <div className="bg-[#F9FBFC] p-5 rounded-lg">
-              <Mail className="inline-block h-5 mb-1 mr-2 text-[#0F172A]" />
-              <span className="font-semibold text-[#0F172A]">Email</span>
-              <p className="text-[#7F7F7F] mt-2">
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-200">
+              <Mail className="h-6 w-6 text-[#0F172A] mb-3" />
+              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
+                Email
+              </span>
+              <p className="text-[#0F172A] font-medium text-lg break-all">
                 {userInfo?.email || "Not available"}
               </p>
             </div>
-            <div className="bg-[#F9FBFC] p-5 rounded-lg">
-              <Phone className="inline-block h-5 mb-1 mr-2 text-[#0F172A]" />
-              <span className="font-semibold text-[#0F172A]">Phone</span>
-              <p className="text-[#7F7F7F] mt-2">
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-200">
+              <Phone className="h-6 w-6 text-[#0F172A] mb-3" />
+              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
+                Phone
+              </span>
+              <p className="text-[#0F172A] font-medium text-lg">
                 {userInfo?.phone || "Not available"}
               </p>
             </div>
@@ -364,53 +389,53 @@ const Profile = () => {
         </div>
 
         {/* Saved Itinerary Section */}
-        <div className="bg-[#FFFFFF] rounded-2xl shadow-2xl p-10">
-          <h2 className="text-3xl font-bold text-[#0F172A] mb-6">
-            <Luggage className="inline-block h-8 mb-1 mr-3" />
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 border border-slate-100">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0F172A] mb-8">
+            <Luggage className="inline-block h-7 sm:h-8 md:h-9 mb-1 mr-3" />
             My Travel Plans
           </h2>
 
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
           {itineraries.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">✈️</div>
-              <p className="text-xl text-[#7F7F7F] mb-6">
+            <div className="text-center py-16 sm:py-20">
+              <Luggage className="h-20 w-20 sm:h-24 sm:w-24 mx-auto mb-6 text-slate-400" />
+              <p className="text-xl sm:text-2xl text-slate-600 mb-8">
                 No saved itineraries yet
               </p>
               <button
                 onClick={() => navigate("/itinerary")}
-                className="px-6 py-3 bg-[#0F172A] text-white rounded-lg hover:bg-[#1E293B] transition-all duration-200 active:scale-95"
+                className="inline-flex items-center justify-center px-8 py-3.5 bg-[#0F172A] text-white font-semibold rounded-full hover:bg-slate-900 transition-all duration-200 active:scale-95 shadow-xl"
               >
                 Create Your First Trip
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:gap-8">
               {itineraries.map((itin) => (
                 <div
                   key={itin._id}
-                  className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-br from-white to-slate-50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200"
                 >
                   {/* Trip Header */}
-                  <div className="p-6 border-b border-[#e0e0e0]">
-                    <div className="flex justify-between items-start">
+                  <div className="p-6 sm:p-8 border-b border-slate-200 bg-white/50">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-[#0F172A] mb-2">
-                          <MapPin className="inline-block h-6 mb-1 mr-2" />
+                        <h3 className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-3">
+                          <MapPin className="inline-block h-6 sm:h-7 mb-1 mr-2" />
                           {itin.destination}
                         </h3>
-                        <div className="flex gap-6 text-[#7F7F7F]">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-slate-600">
                           <div>
-                            <Calendar className="inline-block h-4 mb-1 mr-1" />
-                            <span className="text-sm">
+                            <Calendar className="inline-block h-4 mb-0.5 mr-1.5" />
+                            <span className="text-sm font-medium">
                               {new Date(itin.startDate).toLocaleDateString()} -{" "}
                               {new Date(itin.endDate).toLocaleDateString()}
                             </span>
                           </div>
                           <div>
-                            <Clock className="inline-block h-4 mb-1 mr-1" />
-                            <span className="text-sm">
+                            <Clock className="inline-block h-4 mb-0.5 mr-1.5" />
+                            <span className="text-sm font-medium">
                               {itin.days} {itin.days === 1 ? "Day" : "Days"}
                             </span>
                           </div>
@@ -419,28 +444,28 @@ const Profile = () => {
                       <button
                         onClick={() => handleDeleteItinerary(itin._id)}
                         disabled={deleting === itin._id}
-                        className={`px-4 py-2 text-white rounded-lg transition-all duration-200 ${
+                        className={`w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 text-white font-semibold rounded-full transition-all duration-200 shadow-lg ${
                           deleting === itin._id
                             ? "bg-red-300 cursor-not-allowed"
                             : "bg-red-500 hover:bg-red-600 active:scale-95"
                         }`}
                       >
-                        <Trash2 className="inline-block h-4 mb-1 mr-1" />
+                        <Trash2 className="h-4 w-4 mr-2" />
                         {deleting === itin._id ? "Deleting..." : "Delete"}
                       </button>
                     </div>
                   </div>
 
                   {/* Daily Itinerary */}
-                  <div className="p-6">
-                    <h4 className="text-lg font-bold text-[#0F172A] mb-4">
+                  <div className="p-6 sm:p-8">
+                    <h4 className="text-xl sm:text-2xl font-bold text-[#0F172A] mb-6">
                       Day-by-Day Plan
                     </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                       {itin.enrichedDays?.map((day, index) => (
                         <div
                           key={index}
-                          className="bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all"
+                          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200"
                         >
                           <div
                             style={{
@@ -448,21 +473,21 @@ const Profile = () => {
                                 ? `url('${day.Destination.image}')`
                                 : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                             }}
-                            className="h-32 bg-cover bg-center relative"
+                            className="h-40 sm:h-44 bg-cover bg-center relative"
                           >
-                            <div className="absolute top-2 left-2 w-8 h-8 flex items-center justify-center rounded-full bg-[#0F172A] text-white font-bold text-sm">
+                            <div className="absolute top-3 left-3 w-10 h-10 flex items-center justify-center rounded-xl bg-[#0F172A] text-white font-bold shadow-lg">
                               {day.Day}
                             </div>
                           </div>
-                          <div className="p-4">
-                            <h5 className="font-bold text-[#0F172A] mb-1 truncate">
+                          <div className="p-5">
+                            <h5 className="font-bold text-[#0F172A] text-lg mb-2 truncate">
                               {day.Destination?.Name}
                             </h5>
-                            <p className="text-xs text-[#7F7F7F] mb-1">
-                              <Clock className="inline-block h-3 mb-0.5 mr-1" />
+                            <p className="text-sm text-slate-600 mb-2 flex items-center">
+                              <Clock className="inline-block h-3.5 w-3.5 mr-1.5" />
                               {day.Destination?.BestTimeToVisit}
                             </p>
-                            <p className="text-xs text-[#7F7F7F] line-clamp-2">
+                            <p className="text-sm text-slate-500 line-clamp-2">
                               {day.Destination?.Speciality}
                             </p>
                           </div>
@@ -472,18 +497,19 @@ const Profile = () => {
 
                     {/* Packing List */}
                     {itin.packingList && (
-                      <div className="mt-6 bg-white p-4 rounded-lg">
-                        <h5 className="font-bold text-[#0F172A] mb-3">
-                          📦 Packing List
+                      <div className="mt-6 bg-gradient-to-br from-slate-50 to-white p-6 rounded-xl border border-slate-200">
+                        <h5 className="font-bold text-[#0F172A] text-lg mb-4 flex items-center">
+                          <Package className="h-5 w-5 mr-2" />
+                          Packing List
                         </h5>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                           {Object.entries(itin.packingList).map(
                             ([category, items]) => (
                               <div key={category}>
-                                <h6 className="font-semibold text-[#0F172A] text-sm mb-1">
+                                <h6 className="font-semibold text-[#0F172A] text-sm mb-2">
                                   {category}
                                 </h6>
-                                <ul className="text-xs text-[#7F7F7F] space-y-0.5">
+                                <ul className="text-sm text-slate-600 space-y-1">
                                   {Array.isArray(items) ? (
                                     items
                                       .slice(0, 3)
@@ -516,16 +542,13 @@ const Profile = () => {
       {/* Toast Notification */}
       {toast.show && (
         <div
-          className={`fixed bottom-6 right-6 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50 transition-all ${
+          className={`fixed bottom-6 right-6 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-50 transition-all backdrop-blur-lg ${
             toast.type === "success"
-              ? "bg-green-500 text-white"
-              : "bg-red-500 text-white"
+              ? "bg-green-500/90 text-white"
+              : "bg-red-500/90 text-white"
           }`}
         >
-          <span className="text-lg">
-            {toast.type === "success" ? "✓" : "✕"}
-          </span>
-          <span className="font-medium">{toast.message}</span>
+          <span className="font-semibold">{toast.message}</span>
         </div>
       )}
 
