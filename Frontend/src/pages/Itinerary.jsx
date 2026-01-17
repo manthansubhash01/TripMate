@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import TripMateLoader from "../components/Loader";
 import tripImage from "../assets/Globalization-bro.jpg";
+import { motion } from "motion/react";
 
 const Itinerary = () => {
   const [loading, setLoading] = useState(false);
@@ -123,113 +124,173 @@ const Itinerary = () => {
     }
   };
 
+  const text = "Plan Your Dream Journey";
+
   return (
     <div className="min-h-screen bg-[#F9FBFC]">
-      {/* Hero Section with Form */}
-      <div className="px-20 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
-          {/* Left Side - Form */}
-          <div className="flex flex-col justify-center">
-            <h1 className="text-5xl font-bold text-[#0F172A] mb-4">
-              Plan Your Dream Journey
-            </h1>
-            <p className="text-[#7F7F7F] text-lg mb-8">
-              Create personalized itineraries with our intuitive planner. Get
-              recommendations, organize activities, and craft the perfect travel
-              experience.
-            </p>
-            <form
-              onSubmit={handleSubmit}
-              className="bg-[#FFFFFF] rounded-2xl shadow-xl p-8"
-            >
-              <div className="grid grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label className="block text-sm font-semibold text-[#0F172A] mb-2">
-                    Origin
-                  </label>
-                  <input
-                    type="text"
-                    name="origin"
-                    ref={originRef}
-                    placeholder="Mumbai"
-                    className="w-full px-4 py-3 bg-[#F9FBFC] border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#0F172A] mb-2">
-                    Destination
-                  </label>
-                  <input
-                    type="text"
-                    name="destination"
-                    ref={destinationRef}
-                    placeholder="Paris"
-                    className="w-full px-4 py-3 bg-[#F9FBFC] border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#0F172A] mb-2">
-                    Start Date
-                  </label>
-                  <input
-                    type="Date"
-                    name="startDate"
-                    ref={startDateRef}
-                    className="w-full px-4 py-3 bg-[#F9FBFC] border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#0F172A] mb-2">
-                    End Date
-                  </label>
-                  <input
-                    type="Date"
-                    name="endDate"
-                    ref={endDateRef}
-                    className="w-full px-4 py-3 bg-[#F9FBFC] border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
-                  />
-                </div>
-              </div>
-              <div className="mb-6">
-                <label className="block text-sm font-semibold text-[#0F172A] mb-2">
-                  Trip Description (Optional)
+      <div className="relative w-full overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source
+            src="https://cdn.pixabay.com/video/2025/01/19/253436_large.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 pt-28 pb-20">
+          <div className="mb-4 rounded-full bg-white/80 px-4 py-1 text-s font-semibold uppercase tracking-[0.2em] text-slate-700 shadow">
+            Travel More, Worry Less
+          </div>
+
+          <motion.h1 className="text-center text-8xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl flex flex-wrap justify-center">
+            {text.split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.05, // typing speed
+                  ease: "easeOut",
+                }}
+                className="inline-block"
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: "easeOut",
+            }}
+            className="mt-4 max-w-2xl text-center text-base text-slate-100 sm:text-lg"
+          >
+            Create personalized itineraries with our intuitive planner. Get
+            recommendations, organize activities, and craft the perfect travel
+            experience.
+          </motion.p>
+
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{
+              duration: 1.5,
+              delay: 0.6,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            style={{ transformOrigin: "50% 50%" }}
+            className="mt-20 w-full rounded-3xl bg-white/95 p-6 shadow-2xl backdrop-blur-md sm:p-8"
+          >
+            <div className="grid gap-6 md:grid-cols-4">
+              <div className="md:col-span-1">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  Origin
                 </label>
-                <textarea
-                  placeholder="Describe your trip preferences..."
-                  name="Trip Description"
-                  ref={descriptionRef}
-                  rows="4"
-                  className="w-full px-4 py-3 bg-[#F9FBFC] border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition resize-none"
+                <input
+                  type="text"
+                  name="origin"
+                  ref={originRef}
+                  placeholder="Mumbai"
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                 />
               </div>
+
+              <div className="md:col-span-1">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  Destination
+                </label>
+                <input
+                  type="text"
+                  name="destination"
+                  ref={destinationRef}
+                  placeholder="Paris"
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                />
+              </div>
+
+              <div className="md:col-span-1">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  Start Date
+                </label>
+                <input
+                  type="Date"
+                  name="startDate"
+                  ref={startDateRef}
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                />
+              </div>
+
+              <div className="md:col-span-1">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  End Date
+                </label>
+                <input
+                  type="Date"
+                  name="endDate"
+                  ref={endDateRef}
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col items-center justify-between gap-4 md:flex-row">
+              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600">
+                <span className="text-slate-500">Filter:</span>
+                <button
+                  type="button"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-700 shadow-sm"
+                >
+                  Relaxed
+                </button>
+                <button
+                  type="button"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-700 shadow-sm"
+                >
+                  Adventure
+                </button>
+                <button
+                  type="button"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-700 shadow-sm"
+                >
+                  Family Friendly
+                </button>
+              </div>
+
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full px-6 py-4 text-[#FFFFFF] rounded-lg font-semibold transition-all duration-200 ${
+                className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white shadow-xl transition-all duration-200 ${
                   loading
-                    ? "bg-[#172341] cursor-not-allowed"
-                    : "bg-[#0F172A] hover:bg-[#1E293B] hover:shadow-lg active:scale-95"
+                    ? "bg-slate-900/70 cursor-not-allowed"
+                    : "bg-[#0F172A] hover:bg-slate-900 hover:shadow-2xl active:scale-95"
                 }`}
               >
                 {loading
                   ? "Generating Your Itinerary..."
                   : "Generate Itinerary"}
               </button>
-            </form>
-          </div>
-
-          {/* Right Side - Image */}
-          <div className="flex items-center justify-center">
-            <img
-              src="https://images.pexels.com/photos/14131701/pexels-photo-14131701.jpeg"
-              alt="Travel"
-              className="w-full h-full max-h-150 object-cover rounded-2xl shadow-2xl"
-            />
-          </div>
+            </div>
+          </motion.form>
         </div>
       </div>
 
-      {/* Itinerary Results Section */}
       <div className="bg-[#FFFFFF] py-15">
         <div className="px-20">
           {loading ? (
@@ -254,15 +315,35 @@ const Itinerary = () => {
                 </button>
               </div>
 
-              {/* Day-by-Day Cards */}
               <div className="space-y-6 mb-15">
                 {result.enrichedDays.map((dayObj, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                    initial={{
+                      opacity: 0,
+                      y: 40,
+                      scale: 0.95,
+                      filter: "blur(8px)",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      filter: "blur(0px)",
+                    }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.2 + index * 0.08,
+                      ease: "easeOut",
+                    }}
+                    whileHover={{
+                      y: -8,
+                      scale: 1.02,
+                      boxShadow: "0 25px 80px rgba(15,23,42,0.28)",
+                    }}
+                    className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg transition-all duration-300"
                   >
                     <div className="flex flex-col md:flex-row">
-                      {/* Image Section */}
                       <div
                         style={{
                           backgroundImage: `url('${dayObj.Destination.image}')`,
@@ -274,7 +355,6 @@ const Itinerary = () => {
                         </div>
                       </div>
 
-                      {/* Content Section */}
                       <div className="flex-1 p-8">
                         <div className="flex justify-between items-start mb-6">
                           <h3 className="text-3xl font-bold text-[#0F172A]">
@@ -333,12 +413,16 @@ const Itinerary = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
-              {/* Trip Summary Card */}
-              <div className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg">
+              <motion.div
+                initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+                className="bg-[#F9FBFC] rounded-2xl overflow-hidden shadow-lg"
+              >
                 <div
                   style={{
                     backgroundImage: `url('${
@@ -393,12 +477,16 @@ const Itinerary = () => {
                     e
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Packing Suggestions Section */}
               {result.packingList &&
                 Object.keys(result.packingList).length > 0 && (
-                  <div className="bg-[#FFFFFF] rounded-2xl shadow-lg p-8 mt-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+                    className="bg-[#FFFFFF] rounded-2xl shadow-lg p-8 mt-6"
+                  >
                     <div className="flex items-center mb-6">
                       <div className="flex items-center justify-center w-12 h-12 bg-[#0F172A] rounded-lg mr-4">
                         <Package className="h-6 w-6 text-white" />
@@ -416,9 +504,21 @@ const Itinerary = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {Object.entries(result.packingList).map(
                         ([category, items]) => (
-                          <div
+                          <motion.div
                             key={category}
-                            className="bg-[#F9FBFC] rounded-xl p-5 hover:shadow-md transition-all duration-200"
+                            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            transition={{
+                              duration: 0.6,
+                              delay: 0.5,
+                              ease: "easeOut",
+                            }}
+                            whileHover={{
+                              y: -6,
+                              scale: 1.02,
+                              boxShadow: "0 18px 50px rgba(15,23,42,0.22)",
+                            }}
+                            className="bg-[#F9FBFC] rounded-xl p-5 transition-all duration-200"
                           >
                             <div className="flex items-center mb-4">
                               <div className="w-8 h-8 flex items-center justify-center bg-[#0F172A] rounded-lg mr-3">
@@ -450,11 +550,11 @@ const Itinerary = () => {
                                 </li>
                               )}
                             </ul>
-                          </div>
+                          </motion.div>
                         )
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 )}
             </div>
           ) : (
@@ -468,7 +568,6 @@ const Itinerary = () => {
         </div>
       </div>
 
-      {/* Toast Notification */}
       {toast.show && (
         <div
           className={`fixed bottom-6 right-6 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50 transition-all ${

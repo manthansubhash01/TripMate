@@ -58,8 +58,23 @@ function SignUpPage() {
   };
 
   return (
-    <div className="flex items-center justify-around min-h-screen bg-[#F9FBFC]">
-      <div className="flex w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl bg-[#FFFFFF]">
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source
+          src="https://cdn.pixabay.com/video/2022/11/22/140111-774507949_large.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+
+      <div className="relative z-10 flex w-full max-w-5xl rounded-2xl overflow-hidden bg-white shadow-2xl">
         <div className="hidden md:block md:w-1/2">
           <img
             src="https://images.pexels.com/photos/16354153/pexels-photo-16354153/free-photo-of-a-sunset-on-the-beach-with-waves-and-sand.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load"
@@ -68,8 +83,10 @@ function SignUpPage() {
           ></img>
         </div>
         <div className="m-auto">
-          <h2 className="text-3xl font-extrabold mb-1">Welcome back</h2>
-          <p className="text-[#7F7F7F] mb-12">Login to continue your journey</p>
+          <h2 className="text-3xl font-extrabold mb-1">Create an account</h2>
+          <p className="text-[#7F7F7F] mb-12">
+            Join TripMate and start planning
+          </p>
           <form onSubmit={handelSubmit}>
             <div className="mb-6 relative">
               <CircleUserRound

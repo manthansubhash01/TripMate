@@ -60,9 +60,32 @@ function LoginPage() {
     }
   };
 
+  const handleUseTestCredentials = () => {
+    if (usernameRef.current && passwordRef.current) {
+      usernameRef.current.value = "test_user";
+      passwordRef.current.value = "test1234";
+      setError("");
+    }
+  };
+
   return (
-    <div className="flex items-center justify-around min-h-screen bg-[#F9FBFC]">
-      <div className="flex w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl bg-[#FFFFFF]">
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source
+          src="https://cdn.pixabay.com/video/2020/12/01/57993-487499986_large.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+
+      <div className="relative z-10 flex w-full max-w-5xl rounded-2xl overflow-hidden bg-white shadow-2xl">
         <div className="hidden md:block md:w-1/2">
           <img
             src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
@@ -105,11 +128,20 @@ function LoginPage() {
             </div>
             <button
               type="submit"
-              className="w-full h-10 text-white bg-[#0F172A] mb-6 rounded-lg"
+              className="w-full h-10 text-white bg-[#0F172A] mb-3 rounded-lg"
             >
               Login
             </button>
-            {error && <p>{error}</p>}
+            {error && <p className="mb-2 text-center text-red-500">{error}</p>}
+
+            <button
+              type="button"
+              onClick={handleUseTestCredentials}
+              className="mb-4 w-full rounded-lg border border-[#0F172A] px-4 py-2 text-sm font-semibold text-[#0F172A] hover:bg-[#0F172A] hover:text-white transition-colors"
+            >
+              Use test credentials
+            </button>
+
             <p className="text-[#7F7F7F] text-center">
               Don't have an account ?{" "}
               <Link to="/signup" className="text-[#0F172A]">
