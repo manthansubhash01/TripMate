@@ -33,6 +33,13 @@ const Itinerary = () => {
   const endDateRef = useRef();
   const descriptionRef = useRef();
 
+  // Calculate date restrictions: today to 1 year from today
+  const today = new Date();
+  const minDate = today.toISOString().split("T")[0];
+  const maxDate = new Date(today.setFullYear(today.getFullYear() + 1))
+    .toISOString()
+    .split("T")[0];
+
   const handleSubmit = async (eve) => {
     eve.preventDefault();
     setLoading(true);
@@ -144,12 +151,12 @@ const Itinerary = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 sm:px-6 md:px-8 pt-24 sm:pt-28 pb-12 sm:pb-20">
-          <div className="mb-3 sm:mb-4 rounded-full bg-white/80 px-3 sm:px-4 py-1 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-slate-700 shadow">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-5 sm:px-8 md:px-12 pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-16 md:pb-20">
+          <div className="mb-4 sm:mb-5 rounded-full bg-white/90 backdrop-blur-sm px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-700 shadow-lg">
             Travel More, Worry Less
           </div>
 
-          <motion.h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight text-white flex flex-wrap justify-center">
+          <motion.h1 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white flex flex-wrap justify-center">
             {text.split("").map((char, index) => (
               <motion.span
                 key={index}
@@ -175,7 +182,7 @@ const Itinerary = () => {
               delay: 0.4,
               ease: "easeOut",
             }}
-            className="mt-4 max-w-2xl text-center text-sm sm:text-base text-slate-100"
+            className="mt-4 sm:mt-5 max-w-2xl text-center text-sm sm:text-base md:text-lg text-slate-100 leading-relaxed px-4"
           >
             Create personalized itineraries with our intuitive planner. Get
             recommendations, organize activities, and craft the perfect travel
@@ -192,11 +199,11 @@ const Itinerary = () => {
               ease: [0.16, 1, 0.3, 1],
             }}
             style={{ transformOrigin: "50% 50%" }}
-            className="mt-12 sm:mt-16 md:mt-20 w-full rounded-2xl sm:rounded-3xl bg-white/95 p-4 sm:p-6 md:p-8 shadow-2xl backdrop-blur-md"
+            className="mt-8 sm:mt-12 md:mt-16 w-full rounded-xl sm:rounded-2xl bg-white/95 p-5 sm:p-7 md:p-8 shadow-2xl backdrop-blur-md"
           >
-            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
               <div className="md:col-span-1">
-                <label className="mb-2 block text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-slate-600">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
                   Origin
                 </label>
                 <input
@@ -205,12 +212,12 @@ const Itinerary = () => {
                   ref={originRef}
                   placeholder="Mumbai"
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                 />
               </div>
 
               <div className="md:col-span-1">
-                <label className="mb-2 block text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-slate-600">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
                   Destination
                 </label>
                 <input
@@ -219,42 +226,46 @@ const Itinerary = () => {
                   ref={destinationRef}
                   placeholder="Paris"
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                 />
               </div>
 
               <div className="md:col-span-1">
-                <label className="mb-2 block text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-slate-600">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
                   Start Date
                 </label>
                 <input
                   type="Date"
                   name="startDate"
                   ref={startDateRef}
+                  min={minDate}
+                  max={maxDate}
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                 />
               </div>
 
               <div className="md:col-span-1">
-                <label className="mb-2 block text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-slate-600">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">
                   End Date
                 </label>
                 <input
                   type="Date"
                   name="endDate"
                   ref={endDateRef}
+                  min={minDate}
+                  max={maxDate}
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-transparent focus:ring-2 focus:ring-slate-900/80"
                 />
               </div>
             </div>
 
-            <div className="mt-5 sm:mt-6 flex justify-center md:justify-end">
+            <div className="mt-6 flex justify-center md:justify-end">
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full md:w-auto inline-flex items-center justify-center rounded-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold text-white shadow-xl transition-all duration-200 ${
+                className={`w-full md:w-auto inline-flex items-center justify-center rounded-full px-7 sm:px-9 py-3 text-sm sm:text-base font-semibold text-white shadow-xl transition-all duration-200 ${
                   loading
                     ? "bg-slate-900/70 cursor-not-allowed"
                     : "bg-[#0F172A] hover:bg-slate-900 hover:shadow-2xl active:scale-95"
@@ -269,31 +280,31 @@ const Itinerary = () => {
         </div>
       </div>
 
-      <div className="bg-[#FFFFFF] py-10 sm:py-15">
-        <div className="px-4 sm:px-8 md:px-12 lg:px-20">
+      <div className="bg-[#FFFFFF] py-8 sm:py-12 md:py-16">
+        <div className="px-5 sm:px-8 md:px-12 lg:px-20">
           {loading ? (
             <TripMateLoader height={"h-screen"} />
           ) : Array.isArray(result.enrichedDays) ? (
             <div>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 sm:mb-10">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0F172A]">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F172A]">
                   Your Personalized Itinerary
                 </h2>
                 <button
                   onClick={handleSave}
                   disabled={saving}
-                  className={`w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 text-[#FFFFFF] bg-[#0F172A] rounded-lg transition-all duration-200 shadow-lg text-sm sm:text-base ${
+                  className={`w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 text-[#FFFFFF] bg-[#0F172A] rounded-lg transition-all duration-200 shadow-lg text-sm font-medium ${
                     saving
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:bg-[#1E293B] active:scale-95"
                   }`}
                 >
-                  <Import className="inline-block h-4 sm:h-5 mb-0.5 sm:mb-1 mr-2" />
+                  <Import className="inline-block h-4 sm:h-5 mb-0.5 mr-2" />
                   {saving ? "Saving..." : "Save Itinerary"}
                 </button>
               </div>
 
-              <div className="space-y-5 sm:space-y-6 mb-10 sm:mb-15">
+              <div className="space-y-5 sm:space-y-6 mb-8 sm:mb-10 md:mb-12">
                 {result.enrichedDays.map((dayObj, index) => (
                   <motion.div
                     key={index}

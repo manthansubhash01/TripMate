@@ -158,79 +158,99 @@ const HomePage = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           transition={{ staggerChildren: 0.25 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
+          {/* Interactive World Map - Full height card */}
           <motion.div
             variants={revealFromBottom}
             style={{ transformOrigin: "bottom" }}
-            className="bg-[#fbfbfb] md:row-span-2 min-h-96 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-8 md:p-10 overflow-hidden"
+            className="bg-[#fbfbfb] lg:row-span-2 rounded-2xl border-[#a3a3a3] border p-8 sm:p-10 md:p-12 overflow-hidden flex flex-col min-h-[500px] lg:min-h-[600px]"
           >
-            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
-              Interactive World Map
-            </h1>
-            <h2 className="text-base sm:text-lg text-[#414f6f] mb-6 sm:mb-8 md:mb-12">
-              Visualize your journey and unlock travel inspiration with every
-              click.
-            </h2>
-            <p className="text-sm sm:text-base text-[#0F172A] mb-6 sm:mb-8">
-              Discover the world at a glance. Zoom in, explore continents, and
-              pick your dream destinations effortlessly.
-            </p>
-            <div className="flex justify-center">
+            <div className="mb-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0F172A] mb-3">
+                Interactive World Map
+              </h1>
+              <h2 className="text-base sm:text-lg text-[#414f6f] mb-4">
+                Visualize your journey and unlock travel inspiration with every
+                click.
+              </h2>
+              <p className="text-sm sm:text-base text-[#0F172A] leading-relaxed">
+                Discover the world at a glance. Zoom in, explore continents, and
+                pick your dream destinations effortlessly.
+              </p>
+            </div>
+            <div className="flex-1 flex items-end justify-center min-h-[280px] sm:min-h-[320px] lg:min-h-0">
               <div
                 style={{
                   backgroundImage: `url("https://images.pexels.com/photos/3243090/pexels-photo-3243090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")`,
                 }}
-                className="h-48 sm:h-64 md:h-80 lg:h-110 w-full max-w-md bg-cover bg-center rounded-lg"
+                className="w-full h-full rounded-xl bg-cover bg-center shadow-lg"
               ></div>
             </div>
           </motion.div>
+
+          {/* Packing Assistant - Horizontal layout */}
           <motion.div
             variants={revealFromCenterRight}
             style={{ transformOrigin: "left center" }}
-            className="bg-[#fbfbfb] min-h-80 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-7 overflow-hidden"
+            className="bg-[#fbfbfb] rounded-2xl border-[#a3a3a3] border p-8 sm:p-10 overflow-hidden flex flex-col min-h-[280px] lg:min-h-[290px]"
           >
-            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
-              Packing Assistant
-            </h1>
-            <h2 className="text-base sm:text-lg text-[#414f6f] mb-4">
-              Smart, location-based suggestions for stress-free packing.
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <img
-                src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
-                className="h-48 sm:h-60 w-full sm:w-auto object-cover rounded-lg"
-                alt="Packing"
-              />
-              <p className="text-sm sm:text-base md:text-lg text-[#0F172A]">
-                Get personalized packing lists based on your destination, travel
-                dates, weather, and local customs. Travel light, travel right.
-              </p>
+            <div className="mb-6">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-[#0F172A] mb-3">
+                Packing Assistant
+              </h1>
+              <h2 className="text-base sm:text-lg text-[#414f6f]">
+                Smart, location-based suggestions for stress-free packing.
+              </h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-6 flex-1">
+              <div className="w-full sm:w-1/2 flex-shrink-0">
+                <img
+                  src="https://images.pexels.com/photos/7368269/pexels-photo-7368269.jpeg"
+                  className="w-full h-56 sm:h-full object-cover rounded-xl shadow-md"
+                  alt="Packing"
+                />
+              </div>
+              <div className="flex items-center">
+                <p className="text-sm sm:text-base text-[#0F172A] leading-relaxed">
+                  Get personalized packing lists based on your destination,
+                  travel dates, weather, and local customs. Travel light, travel
+                  right.
+                </p>
+              </div>
             </div>
           </motion.div>
+
+          {/* Expense Tracker - Horizontal layout */}
           <motion.div
             variants={revealFromTop}
             style={{ transformOrigin: "top" }}
-            className="bg-[#fbfbfb] min-h-80 md:h-auto rounded-xl border-[#a3a3a3] border p-6 sm:p-7 overflow-hidden"
+            className="bg-[#fbfbfb] rounded-2xl border-[#a3a3a3] border p-8 sm:p-10 overflow-hidden flex flex-col min-h-[280px] lg:min-h-[290px]"
           >
-            <h1 className="text-2xl sm:text-3xl font-medium text-[#0F172A] mb-3">
-              Expense Tracker
-            </h1>
-            <h2 className="text-base sm:text-lg text-[#414f6f] mb-4">
-              Keep your budget on track with real-time expense monitoring and
-              insights.
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <img
-                src="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg"
-                className="h-48 sm:h-60 w-full sm:w-auto object-cover rounded-lg"
-                alt="Expense tracking"
-              />
-              <p className="text-sm sm:text-base md:text-lg text-[#0F172A]">
-                Track every penny spent on your journey. Categorize expenses,
-                support multiple currencies, and get spending summaries to stay
-                within budget.
-              </p>
+            <div className="mb-6">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-[#0F172A] mb-3">
+                Expense Tracker
+              </h1>
+              <h2 className="text-base sm:text-lg text-[#414f6f]">
+                Keep your budget on track with real-time expense monitoring and
+                insights.
+              </h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-6 flex-1">
+              <div className="w-full sm:w-1/2 flex-shrink-0">
+                <img
+                  src="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg"
+                  className="w-full h-56 sm:h-full object-cover rounded-xl shadow-md"
+                  alt="Expense tracking"
+                />
+              </div>
+              <div className="flex items-center">
+                <p className="text-sm sm:text-base text-[#0F172A] leading-relaxed">
+                  Track every penny spent on your journey. Categorize expenses,
+                  support multiple currencies, and get spending summaries to
+                  stay within budget.
+                </p>
+              </div>
             </div>
           </motion.div>
         </motion.div>
