@@ -1,6 +1,5 @@
 const Expense = require("../models/expenseModel");
 
-// Add a new expense
 const addExpense = async (req, res) => {
   const userId = req.user._id;
   const {
@@ -34,7 +33,6 @@ const addExpense = async (req, res) => {
   }
 };
 
-// Get all expenses for a user
 const getAllExpenses = async (req, res) => {
   const userId = req.user._id;
 
@@ -47,7 +45,6 @@ const getAllExpenses = async (req, res) => {
   }
 };
 
-// Get expenses for a specific trip
 const getExpensesByTrip = async (req, res) => {
   const userId = req.user._id;
   const { tripName } = req.params;
@@ -63,7 +60,6 @@ const getExpensesByTrip = async (req, res) => {
   }
 };
 
-// Get expenses for a specific itinerary
 const getExpensesByItinerary = async (req, res) => {
   const userId = req.user._id;
   const { itineraryId } = req.params;
@@ -79,7 +75,6 @@ const getExpensesByItinerary = async (req, res) => {
   }
 };
 
-// Update an expense
 const updateExpense = async (req, res) => {
   const userId = req.user._id;
   const { id } = req.params;
@@ -95,19 +90,16 @@ const updateExpense = async (req, res) => {
     const updatedExpense = await Expense.findByIdAndUpdate(id, updates, {
       new: true,
     });
-    res
-      .status(200)
-      .json({
-        message: "Expense updated successfully",
-        expense: updatedExpense,
-      });
+    res.status(200).json({
+      message: "Expense updated successfully",
+      expense: updatedExpense,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error updating expense" });
   }
 };
 
-// Delete an expense
 const deleteExpense = async (req, res) => {
   const userId = req.user._id;
   const { id } = req.params;
@@ -127,26 +119,22 @@ const deleteExpense = async (req, res) => {
   }
 };
 
-// Get expense summary/analytics
 const getExpenseSummary = async (req, res) => {
   const userId = req.user._id;
 
   try {
     const expenses = await Expense.find({ userId });
 
-    // Calculate totals by category
     const categoryTotals = expenses.reduce((acc, expense) => {
       acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
       return acc;
     }, {});
 
-    // Calculate totals by trip
     const tripTotals = expenses.reduce((acc, expense) => {
       acc[expense.tripName] = (acc[expense.tripName] || 0) + expense.amount;
       return acc;
     }, {});
 
-    // Calculate overall total
     const totalExpenses = expenses.reduce(
       (sum, expense) => sum + expense.amount,
       0

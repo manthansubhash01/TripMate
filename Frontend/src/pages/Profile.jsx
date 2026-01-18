@@ -41,13 +41,11 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Decode JWT to get user info
         if (token) {
           const payload = JSON.parse(atob(token.split(".")[1]));
           setUserInfo(payload);
         }
 
-        // Fetch saved itineraries
         const response = await fetch(
           "https://tripmate-bgz6.onrender.com/api/trip/getItinerary",
           {
@@ -178,7 +176,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
       <div
         className="relative overflow-hidden py-16 sm:py-20 md:py-24"
         style={{
@@ -211,7 +208,6 @@ const Profile = () => {
       </div>
 
       <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-8 sm:py-12 md:py-16 bg-[#F9FBFC]">
-        {/* Change Password Form */}
         {showPasswordForm && (
           <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-10 border border-slate-100">
             <h3 className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-6 sm:mb-8">
@@ -341,7 +337,6 @@ const Profile = () => {
           </div>
         )}
 
-        {/* User Info Card */}
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-10 border border-slate-100">
           <div className="flex flex-col sm:flex-row items-center sm:items-start mb-8 sm:mb-10">
             <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-br from-[#0F172A] to-[#334155] rounded-2xl flex items-center justify-center text-white text-3xl sm:text-4xl font-bold mb-4 sm:mb-0 sm:mr-8 shadow-xl">
@@ -388,7 +383,6 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Saved Itinerary Section */}
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 border border-slate-100">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0F172A] mb-8">
             <Luggage className="inline-block h-7 sm:h-8 md:h-9 mb-1 mr-3" />
@@ -417,7 +411,6 @@ const Profile = () => {
                   key={itin._id}
                   className="bg-gradient-to-br from-white to-slate-50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200"
                 >
-                  {/* Trip Header */}
                   <div className="p-6 sm:p-8 border-b border-slate-200 bg-white/50">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                       <div className="flex-1">
@@ -456,7 +449,6 @@ const Profile = () => {
                     </div>
                   </div>
 
-                  {/* Daily Itinerary */}
                   <div className="p-6 sm:p-8">
                     <h4 className="text-xl sm:text-2xl font-bold text-[#0F172A] mb-6">
                       Day-by-Day Plan
@@ -495,7 +487,6 @@ const Profile = () => {
                       ))}
                     </div>
 
-                    {/* Packing List */}
                     {itin.packingList && (
                       <div className="mt-6 bg-gradient-to-br from-slate-50 to-white p-6 rounded-xl border border-slate-200">
                         <h5 className="font-bold text-[#0F172A] text-lg mb-4 flex items-center">
@@ -539,7 +530,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Toast Notification */}
       {toast.show && (
         <div
           className={`fixed bottom-6 right-6 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-50 transition-all backdrop-blur-lg ${

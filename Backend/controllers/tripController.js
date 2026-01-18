@@ -1,4 +1,3 @@
-// const { getdestinationId, getAttractions } = require("../utils/travelAdvisor");
 const generateItineraryGPT = require("../utils/itineraryAI");
 const getFallbackImage = require("../utils/FallbackImage");
 const getPackingList = require("../utils/packingAssistant");
@@ -70,12 +69,10 @@ const saveItinerary = async (req, res) => {
       enrichedDays,
       packingList,
     });
-    res
-      .status(200)
-      .json({
-        message: "Itinerary saved successfully",
-        itinerary: newItinerary,
-      });
+    res.status(200).json({
+      message: "Itinerary saved successfully",
+      itinerary: newItinerary,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error in saving itinerary" });

@@ -15,9 +15,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#1E293B] px-5 sm:px-8 md:px-12 lg:px-20 py-10 sm:py-14 md:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-          {/* Brand Section */}
           <div className="lg:col-span-5 pb-4 md:pb-0">
             <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               TripMate
@@ -42,9 +40,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Grid - 2 columns on mobile, 3 on desktop */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 lg:col-span-7">
-            {/* Features Section */}
             <div>
               <h4 className="text-white text-base sm:text-lg md:text-xl font-semibold mb-4 sm:mb-5">
                 Features
@@ -77,7 +73,6 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Company Section */}
             <div>
               <h4 className="text-white text-base sm:text-lg md:text-xl font-semibold mb-4 sm:mb-5">
                 Company
@@ -98,7 +93,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Support Section */}
             <div className="col-span-2 sm:col-span-1">
               <h4 className="text-white text-base sm:text-lg md:text-xl font-semibold mb-4 sm:mb-5">
                 Support
@@ -121,10 +115,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-[#334155] my-6 sm:my-8"></div>
 
-        {/* Bottom Footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
           <p className="text-[#94a3b8] text-xs sm:text-sm flex items-center order-2 sm:order-1">
             <Copyright className="inline-block h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-1.5" />

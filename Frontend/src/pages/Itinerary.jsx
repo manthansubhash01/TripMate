@@ -33,7 +33,6 @@ const Itinerary = () => {
   const endDateRef = useRef();
   const descriptionRef = useRef();
 
-  // Calculate date restrictions: today to 1 year from today
   const today = new Date();
   const minDate = today.toISOString().split("T")[0];
   const maxDate = new Date(today.setFullYear(today.getFullYear() + 1))

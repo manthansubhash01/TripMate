@@ -6,7 +6,6 @@ const register = async (req, res) => {
   try {
     const { username, password, email, phone } = req.body;
 
-    // Check if user already exists
     const existingUser = await User.findOne({
       $or: [{ username }, { email }, { phone }],
     });

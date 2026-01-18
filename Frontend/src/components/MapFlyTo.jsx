@@ -1,4 +1,3 @@
-// components/MapFlyTo.js
 import { useMap } from "react-leaflet";
 import { useEffect } from "react";
 
@@ -8,7 +7,7 @@ const MapFlyTo = ({ position }) => {
   useEffect(() => {
     if (position) {
       map.flyTo(position, 13, {
-        duration: 5, 
+        duration: 5,
       });
     }
   }, [position, map]);

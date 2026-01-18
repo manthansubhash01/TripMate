@@ -238,7 +238,6 @@ const ExpenseTracker = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
       <div
         className="relative overflow-hidden py-16 sm:py-20 md:py-24"
         style={{

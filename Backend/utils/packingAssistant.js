@@ -35,10 +35,8 @@ async function getPackingList(destination, startDate, endDate) {
       }
     );
 
-    // ✅ Extract content string
     let content = response.data.choices[0].message.content.trim();
 
-    // ✅ Remove code block markers if present
     if (content.startsWith("```json")) {
       content = content
         .replace(/^```json\s*/, "")
@@ -46,16 +44,14 @@ async function getPackingList(destination, startDate, endDate) {
         .trim();
     }
 
-    // ✅ Isolate JSON array
     const start = content.indexOf("[");
     const end = content.lastIndexOf("]");
     if (start === -1 || end === -1) {
       throw new Error("No JSON array found in model response");
     }
 
-    const jsonText = content.slice(start+1, end);
+    const jsonText = content.slice(start + 1, end);
 
-    // ✅ Parse JSON
     const packingSuggestions = JSON.parse(jsonText);
     console.log("Parsed suggestions:", packingSuggestions);
 

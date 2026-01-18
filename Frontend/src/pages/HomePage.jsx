@@ -54,7 +54,6 @@ const HomePage = () => {
         }}
         className="flex flex-col lg:flex-row p-6 sm:p-10 md:p-16 lg:p-20 gap-8 sm:gap-12 lg:gap-20 items-center"
       >
-        {/* Left text block */}
         <motion.div
           variants={{
             hidden: { opacity: 0, x: -80 },
@@ -126,7 +125,6 @@ const HomePage = () => {
           </motion.ul>
         </motion.div>
 
-        {/* Right image with mask reveal + float */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
@@ -160,7 +158,6 @@ const HomePage = () => {
           transition={{ staggerChildren: 0.25 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
         >
-          {/* Interactive World Map - Full height card */}
           <motion.div
             variants={revealFromBottom}
             style={{ transformOrigin: "bottom" }}
@@ -189,7 +186,6 @@ const HomePage = () => {
             </div>
           </motion.div>
 
-          {/* Packing Assistant - Horizontal layout */}
           <motion.div
             variants={revealFromCenterRight}
             style={{ transformOrigin: "left center" }}
@@ -221,7 +217,6 @@ const HomePage = () => {
             </div>
           </motion.div>
 
-          {/* Expense Tracker - Horizontal layout */}
           <motion.div
             variants={revealFromTop}
             style={{ transformOrigin: "top" }}
