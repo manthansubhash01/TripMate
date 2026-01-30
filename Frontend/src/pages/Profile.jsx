@@ -13,6 +13,7 @@ import {
   Eye,
   EyeOff,
   Trash2,
+  Package,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TripMateLoader from "../components/Loader";
@@ -52,7 +53,7 @@ const Profile = () => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         if (response.ok) {
@@ -107,7 +108,7 @@ const Profile = () => {
             currentPassword: passwordData.currentPassword,
             newPassword: passwordData.newPassword,
           }),
-        }
+        },
       );
 
       const data = await response.json();
@@ -152,7 +153,7 @@ const Profile = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -517,7 +518,7 @@ const Profile = () => {
                                   )}
                                 </ul>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       </div>
